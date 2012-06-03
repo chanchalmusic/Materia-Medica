@@ -1,0 +1,31 @@
+<table:table-row>
+				<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+					<text:p text:style-name="P1">
+						<xsl:value-of select="$regiontext"/>
+					</text:p>
+				</table:table-cell>
+				<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+					<text:p text:style-name="SK-MM-L1">
+						<text:span text:style-name="Strong_20_Emphasis">
+							<xsl:value-of select="$toprint"/>
+						</text:span>
+					</text:p>
+				</table:table-cell>
+				<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+					<text:p text:style-name="Table_20_Contents">
+						<text:span text:style-name="Strong_20_Emphasis"/>
+					</text:p>
+				</table:table-cell>
+				<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+					<text:p text:style-name="SK-MM-L3"/>
+				</table:table-cell>
+				<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+					<text:p text:style-name="Table_20_Contents"/>
+				</table:table-cell>
+				<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+					<text:p text:style-name="Table_20_Contents"/>
+				</table:table-cell>
+				<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+					<text:p text:style-name="Table_20_Contents"/>
+				</table:table-cell>
+			</table:table-row>
