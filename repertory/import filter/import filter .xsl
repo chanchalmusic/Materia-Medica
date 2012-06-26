@@ -289,7 +289,7 @@
 
 	</xsl:template>
 
-	<xsl:template match="text:p">
+	<xsl:template match="text:p[@text:style-name='P4']">
 		<xsl:if test="contains(string(.),':')">
 
 			<xsl:variable name ="followinglist" select="following-sibling::text:p[1]"/>
