@@ -116,7 +116,6 @@
 			</table:table-row>
 
 
-
 			<xsl:if test="contains(following::text:p[@text:style-name='P2'][1], 'REGION')">
 
 				<!-- get REGION text-->
@@ -188,13 +187,14 @@
 		<text:p>
 			<text:line-break/>
 		</text:p>
-
-		<!-- <text:p text:style-name="Primary">
+<!-- 
+		<text:p text:style-name="Primary">
 			<xsl:value-of select="substring-before(following::text:p[@text:style-name='P4'][1], '....................')" />
 			<text:line-break/>
-		</text:p>
- -->
+		</text:p> -->
 
+
+		
 		<xsl:variable name="contextprimary" select="following::text:p[@text:style-name='P4'][1]" />
 
 		<xsl:variable name="tokenizedsample" select="tokenize(substring-before(following::text:p[@text:style-name='P4'][1], '....................'), '\.')" />
@@ -217,14 +217,16 @@
 		</xsl:for-each>
 
 
-		<!-- <text:p text:style-name="Secondary">
+<!-- 		<text:p text:style-name="Secondary">
 			<xsl:value-of select="substring-after(following::text:p[@text:style-name='P4'][1], '....................')" />
 			<text:line-break/>
 		</text:p> -->
+		
+		<xsl:variable name="contextsecondary" select="following::text:p[@text:style-name='P4'][1]" />
 
-		<xsl:variable name="tokenizedsamplesecondary" select="tokenize(substring-after(following::text:p[@text:style-name='P4'][1], '....................'), '\.')" />
+		<xsl:variable name="tokenizedsample" select="tokenize(substring-after(following::text:p[@text:style-name='P4'][1], '....................'), '\.')" />
 
-		<xsl:for-each select="$tokenizedsamplesecondary" >
+		<xsl:for-each select="$tokenizedsample">
 
 
 			<xsl:variable name="tokenizedsubstr" select="tokenize(., ',\s|;\s')" />
@@ -233,10 +235,12 @@
 				<xsl:for-each select="$tokenizedsubstr">
 					<xsl:call-template name="primarytext">
 						<xsl:with-param name="texts" select="normalize-space(current())" />
-						<xsl:with-param name="contextprimary"  select="$contextprimary"/>
+						<xsl:with-param name="contextprimary"  select="$contextsecondary"/>
 					</xsl:call-template>
 				</xsl:for-each>
 			</text:p>
+
+
 		</xsl:for-each>
 
 		<text:p>
@@ -253,7 +257,7 @@
 		<xsl:param name="contextprimary" />
 
 		<xsl:variable name="text-delimiter" select="substring(substring-after($contextprimary, $texts),1,1)"/>
-
+		
 		<!-- <xsl:value-of select="$contextprimary"/> -->
 
 		<xsl:variable name="styleinfo">
@@ -294,6 +298,63 @@
 				<xsl:value-of select="concat($texts, $text-delimiter, ' ')"/>
 			</xsl:otherwise>
 		</xsl:choose> 
+
+
+
+
+
+		<!-- <text:p>
+		<xsl:value-of select="name(.)" />
+		<xsl:value-of select="position()" />
+		</text:p>
+		 -->
+
+		<!-- <xsl:variable name="styleinfo">
+			<xsl:for-each select="text:p[6]/text:span">
+
+
+				<xsl:if test="contains(.,normalize-space($texts))">
+					<xsl:variable name="textstyle">
+						<xsl:value-of select="@text:style-name"/>
+					</xsl:variable>
+
+					<xsl:choose>
+						<xsl:when test="$textstyle = 'T6' or $textstyle = 'T7'">
+							<xsl:value-of select="'Gr2'"/>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:if>
+			</xsl:for-each>
+
+			<xsl:if test="matches(normalize-space($texts), '^[A-Z\.\s]+$')">
+				<xsl:value-of select="'Gr3'"/>
+			</xsl:if>
+
+		</xsl:variable>
+
+
+		<xsl:choose>
+			<xsl:when test="$styleinfo = 'Gr2' ">
+				<text:span text:style-name="Emphasis">
+					<xsl:value-of select="$texts"/>
+				</text:span>
+
+
+			</xsl:when>
+			<xsl:when test="$styleinfo = 'Gr3'">
+				<text:span text:style-name="Strong Emphasis">
+					<xsl:value-of select="$texts"/>
+				</text:span>
+			</xsl:when>
+
+			<xsl:otherwise>
+				<xsl:value-of select="$texts"/>
+			</xsl:otherwise>
+		</xsl:choose> -->
+
+
+
+
 
 	</xsl:template>
 
@@ -399,9 +460,7 @@
 							<xsl:copy-of select="' '"/>
 						</xsl:when>
 						<xsl:otherwise>
-
 							<xsl:copy-of select="'Region'"/>
-
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:if>
@@ -411,10 +470,9 @@
 			<xsl:if test = "not(contains($toprint, ':' ))">
 				<table:table-row>
 					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-						<text:p>
+						<text:p text:style-name="P1">
 							<xsl:value-of select="$regiontext"/>
 						</text:p>
-
 					</table:table-cell>
 					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
 						<text:p text:style-name="SK-MM-L1">
@@ -484,18 +542,15 @@
 
 					<xsl:variable name="regiontext">
 						<xsl:if test="$counter = $totalcounter">
-
 							<xsl:copy-of select="'Region'"/>
-
 						</xsl:if>
 					</xsl:variable>
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p>
+							<text:p text:style-name="P1">
 								<xsl:value-of select="$regiontext"/>
 							</text:p>
-
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
 							<text:p text:style-name="SK-MM-L1">
@@ -823,9 +878,7 @@
 		<xsl:variable name="worsetext">
 			<xsl:choose>
 				<xsl:when test="$counter = $totalcounter">
-
 					<xsl:copy-of select="'Worse'"/>
-
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:copy-of select="''"/>
@@ -868,10 +921,9 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p>
+							<text:p text:style-name="P1">
 								<xsl:value-of select="$worsetext"/>
 							</text:p>
-
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
 							<text:p text:style-name="SK-MM-L1">
@@ -1068,9 +1120,7 @@
 		<xsl:variable name="bettertext">
 			<xsl:choose>
 				<xsl:when test="$counter = $totalcounter">
-
 					<xsl:copy-of select="'Better'"/>
-
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:copy-of select="''"/>
@@ -1110,10 +1160,9 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p>
+							<text:p text:style-name="P1">
 								<xsl:value-of select="$bettertext"/>
 							</text:p>
-
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
 							<text:p text:style-name="SK-MM-L1">
@@ -1489,26 +1538,12 @@
 				</xsl:when>
 				<xsl:when test="$styleinfo = 'Gr3'">
 					<text:span text:style-name="Strong Emphasis">
-						<xsl:choose>
-							<xsl:when test="not($counter = 1)">
-								<xsl:value-of select="concat($texts, $delimiter, ' ')"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$texts"/>
-							</xsl:otherwise>
-						</xsl:choose>
+						<xsl:value-of select="$texts"/>
 					</text:span>
 				</xsl:when>
 
 				<xsl:otherwise>
-					<xsl:choose>
-						<xsl:when test="not($counter = 1)">
-							<xsl:value-of select="concat($texts, $delimiter, ' ')"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="$texts"/>
-						</xsl:otherwise>
-					</xsl:choose>
+					<xsl:value-of select="$texts"/>
 				</xsl:otherwise>
 			</xsl:choose>
 
