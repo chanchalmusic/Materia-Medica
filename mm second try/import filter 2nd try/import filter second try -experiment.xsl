@@ -470,7 +470,7 @@
 			<xsl:if test = "not(contains($toprint, ':' ))">
 				<table:table-row>
 					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-						<text:p text:style-name="P1">
+						<text:p text:style-name="SK-MM-Region">
 							<xsl:value-of select="$regiontext"/>
 						</text:p>
 					</table:table-cell>
@@ -548,7 +548,7 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="P1">
+							<text:p text:style-name="SK-MM-Region">
 								<xsl:value-of select="$regiontext"/>
 							</text:p>
 						</table:table-cell>
@@ -755,7 +755,7 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="P1">Region
+							<text:p text:style-name="SK-MM-Region">Region
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
@@ -921,7 +921,7 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="P1">
+							<text:p text:style-name="SK-MM-Worse">
 								<xsl:value-of select="$worsetext"/>
 							</text:p>
 						</table:table-cell>
@@ -998,7 +998,7 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="P1">
+							<text:p text:style-name="SK-MM-Worse">
 								<xsl:value-of select="$worsetext"/>
 							</text:p>
 						</table:table-cell>
@@ -1160,7 +1160,7 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="P1">
+							<text:p text:style-name="SK-MM-Better">
 								<xsl:value-of select="$bettertext"/>
 							</text:p>
 						</table:table-cell>
@@ -1227,7 +1227,7 @@
 
 					<table:table-row>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="P1">
+							<text:p text:style-name="SK-MM-Better">
 								<xsl:value-of select="$bettertext"/>
 							</text:p>
 						</table:table-cell>
