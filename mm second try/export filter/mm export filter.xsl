@@ -11,7 +11,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 					<xsl:with-param name= "remaining-remedies" select="count(following::text:p[@text:style-name='SK-MM-Rem'])"/>
 				</xsl:call-template>
 			</xsl:for-each>
-			
+
 		</xsl:element>
 
 	</xsl:template>
@@ -52,12 +52,12 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 				<!--check of a SK-MM-Region contains text region -->
 				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and normalize-space(.) = 'Region'">	
-				
+
 					<xsl:element name="abstract">
 						<xsl:attribute name="section">
 							<xsl:value-of select ="'region'" />
 						</xsl:attribute>
-						
+
 						<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L1']">
 							<!--check of SK-MM-L1 is not empty-->
 							<xsl:if test="normalize-space(.) != ''" >
@@ -66,7 +66,170 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 									<xsl:choose >
 										<!--- three level nesting -->
 										<xsl:when test="normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1]) != ''">
-											
+
+											<!-- process to print first level 1 lelment -->
+											<xsl:element name="line">
+												<xsl:element name="item">
+													<xsl:element name="content">
+														<xsl:attribute name="grade">
+															<xsl:call-template name="determine-grade" >
+																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+															</xsl:call-template>
+														</xsl:attribute>
+														<xsl:value-of select="." />
+													</xsl:element>
+													<xsl:element name="subsection">
+														<!-- process to print first level 2 element -->
+														<xsl:element name="line">
+															<xsl:element name="item">
+																<xsl:element name="content">
+																	<xsl:attribute name="grade">
+																		<xsl:call-template name="determine-grade" >
+																			<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
+																		</xsl:call-template>
+																	</xsl:attribute>
+																	<xsl:value-of select="following::text:p[@text:style-name='SK-MM-L2'][1]"/>
+																</xsl:element>
+																<xsl:element name="subsection">
+																	<!-- process to print all level 3 element -->
+																	<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L3']">																			
+																		<xsl:if test="normalize-space(.) != ''">
+																			<!-- this logic can provide bugs in future -->
+																			<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
+																				<xsl:element name="line">
+																					<xsl:element name="content">
+																						<xsl:attribute name="grade">
+																							<xsl:call-template name="determine-grade" >
+																								<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																							</xsl:call-template>
+																						</xsl:attribute>
+																						<xsl:value-of select="."/>
+																					</xsl:element>
+																				</xsl:element>
+																			</xsl:if>
+																		</xsl:if>
+																	</xsl:for-each>
+																</xsl:element>
+
+															</xsl:element>
+														</xsl:element>
+														<!-- process to print other level 2 element -->
+														<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L2']">
+															<!-- check of no. of following worse and immediate L3 is empty -->
+															<xsl:if test="$remaining-worse = count(following::text:p[@text:style-name='SK-MM-Worse']) and normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1])='' and not(normalize-space(.) = '')">
+																<xsl:element name="line">
+																	<xsl:element name="item">
+																		<xsl:element name="content">
+																			<xsl:attribute name="grade">
+																				<xsl:call-template name="determine-grade" >
+																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																				</xsl:call-template>
+																			</xsl:attribute>
+																			<xsl:value-of select="."/>
+																		</xsl:element>
+																	</xsl:element>
+																</xsl:element>
+															</xsl:if>
+														</xsl:for-each>
+
+													</xsl:element>
+
+												</xsl:element>
+											</xsl:element>
+										</xsl:when>
+
+										<!-- two level nesting -->
+										<xsl:when test="normalize-space(following::text:p[@text:style-name='SK-MM-L2'][1]) != ''">
+
+											<!--process to print first level 1 element -->
+											<xsl:element name="line">
+												<xsl:element name="item">
+													<xsl:element name="content">
+														<xsl:attribute name="grade">
+															<xsl:call-template name="determine-grade" >
+																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+															</xsl:call-template>
+														</xsl:attribute>
+														<xsl:value-of select="."/>
+													</xsl:element>
+													<xsl:element name="subsection">	
+														<!-- process to print level 2 element -->
+														<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L2']">
+															<!-- check of no. of following worse and immediate L3 is empty -->
+															<xsl:if test="$remaining-worse = count(following::text:p[@text:style-name='SK-MM-Worse']) and normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1])='' and not(normalize-space(.) = '')">
+																<xsl:element name="line">
+																	<xsl:element name="item">
+																		<xsl:element name="content">
+																			<xsl:attribute name="grade">
+																				<xsl:call-template name="determine-grade" >
+																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																				</xsl:call-template>
+																			</xsl:attribute>
+																			<xsl:value-of select="."/>
+																		</xsl:element>
+																	</xsl:element>
+																</xsl:element>
+															</xsl:if>
+														</xsl:for-each>
+
+													</xsl:element>
+
+												</xsl:element>
+											</xsl:element>
+										</xsl:when>
+
+										<xsl:otherwise>											
+											<xsl:element name="line">
+												<xsl:element name="item">
+													<xsl:element name="content">
+														<xsl:attribute name="grade">
+															<xsl:call-template name="determine-grade" >
+																<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+															</xsl:call-template>
+														</xsl:attribute>
+														<xsl:value-of select="."/>
+													</xsl:element>
+												</xsl:element>
+											</xsl:element>											
+										</xsl:otherwise>
+									</xsl:choose>
+
+
+								</xsl:if>
+							</xsl:if>
+						</xsl:for-each>
+
+					</xsl:element>
+				</xsl:if>	
+
+			</xsl:for-each>
+
+			<!-- check for a Worse Block -->
+			<xsl:for-each select="following::text:p[@text:style-name='SK-MM-Worse']">		
+
+				<!--check of a SK-MM-Worse contains text worse -->
+				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and normalize-space(.) = 'Worse'">	
+
+					<xsl:element name="abstract">
+						<xsl:attribute name="section">
+							<xsl:value-of select ="'worse'" />
+
+						</xsl:attribute>
+
+						<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L1']">
+							<xsl:variable name="no-of-mm-L1">
+								<xsl:copy-of select="count(following::text:p[@text:style-name='SK-MM-L1'][normalize-space(.)!='']) " />
+							</xsl:variable>
+
+							<!--check of SK-MM-L1 is not empty-->
+							<xsl:if test="normalize-space(.) != ''" >
+								<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and preceding::text:p[1]/@text:style-name='SK-MM-Worse'">
+
+
+									<xsl:choose >
+										<!--- three level nesting -->
+										<xsl:when test="normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1]) != ''">
+
 											<!-- process to print first level 1 lelment -->
 											<xsl:element name="line">
 												<xsl:element name="item">
@@ -138,7 +301,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 										<!-- two level nesting -->
 										<xsl:when test="normalize-space(following::text:p[@text:style-name='SK-MM-L2'][1]) != ''">
-											
+
 											<!--process to print first level 1 element -->
 											<xsl:element name="line">
 												<xsl:element name="item">
@@ -149,8 +312,135 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
-														<xsl:element name="subsection">	
-															<!-- process to print level 2 element -->
+													</xsl:element>
+													<xsl:element name="subsection">	
+														<!-- process to print level 2 element -->
+
+														<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L2']">
+
+															<!-- check of no. of following better and immediate L3 is empty -->
+															<!-- <xsl:if test="$remaining-better = count(following::text:p[@text:style-name='SK-MM-Better']) and normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1])='' and not(normalize-space(.) = '')"> -->
+															<!-- how many SK-MM-L1 is present after this SK-MM-L2? If less than when entered this node 
+																 it means another nesting started-->
+															<xsl:if test="count(following::text:p[@text:style-name='SK-MM-L1'][normalize-space(.)!='']) = $no-of-mm-L1">
+																<xsl:element name="line">
+																	<xsl:element name="item">
+																		<xsl:element name="content">
+																			<xsl:attribute name="grade">
+																				<xsl:call-template name="determine-grade" >
+																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																				</xsl:call-template>
+																			</xsl:attribute>
+																			<xsl:value-of select="."/>
+																		</xsl:element>
+																	</xsl:element>
+																</xsl:element>
+															</xsl:if>
+														</xsl:for-each>
+
+													</xsl:element>
+
+												</xsl:element>
+											</xsl:element>
+										</xsl:when>
+
+										<xsl:otherwise>											
+											<xsl:element name="line">
+												<xsl:element name="item">
+													<xsl:element name="content">
+														<xsl:attribute name="grade">
+															<xsl:call-template name="determine-grade" >
+																<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+															</xsl:call-template>
+														</xsl:attribute>
+														<xsl:value-of select="."/>
+													</xsl:element>
+												</xsl:element>
+											</xsl:element>											
+										</xsl:otherwise>
+									</xsl:choose>
+
+
+
+								</xsl:if>
+							</xsl:if>
+						</xsl:for-each>
+					</xsl:element>
+				</xsl:if>	
+
+			</xsl:for-each>
+
+			<!-- check for a Better Block -->
+			<xsl:for-each select="following::text:p[@text:style-name='SK-MM-Better']">	
+
+				<!--check of a SK-MM-Better contains text Better -->
+				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and normalize-space(.) = 'Better'">	
+
+					<xsl:element name="abstract">
+						<xsl:attribute name="section">
+							<xsl:value-of select ="'better'" />
+
+						</xsl:attribute>
+
+						<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L1']">
+							<xsl:variable name="no-of-mm-L1">
+								<xsl:copy-of select="count(following::text:p[@text:style-name='SK-MM-L1'][normalize-space(.)!='']) " />
+							</xsl:variable>
+
+							<!--check of SK-MM-L1 is not empty-->
+							<xsl:if test="normalize-space(.) != ''" >
+								<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and preceding::text:p[1]/@text:style-name='SK-MM-Better'">
+
+
+									<xsl:choose >
+										<!--- three level nesting -->
+										<xsl:when test="normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1]) != ''">
+
+											<!-- process to print first level 1 lelment -->
+											<xsl:element name="line">
+												<xsl:element name="item">
+													<xsl:element name="content">
+														<xsl:attribute name="grade">
+															<xsl:call-template name="determine-grade" >
+																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+															</xsl:call-template>
+														</xsl:attribute>
+														<xsl:value-of select="." />
+														<xsl:element name="subsection">
+															<!-- process to print first level 2 element -->
+															<xsl:element name="line">
+																<xsl:element name="item">
+																	<xsl:element name="content">
+																		<xsl:attribute name="grade">
+																			<xsl:call-template name="determine-grade" >
+																				<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
+																			</xsl:call-template>
+																		</xsl:attribute>
+																		<xsl:value-of select="following::text:p[@text:style-name='SK-MM-L2'][1]"/>
+																		<xsl:element name="subsection">
+																			<!-- process to print all level 3 element -->
+																			<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L3']">																			
+																				<xsl:if test="normalize-space(.) != ''">
+																					<!-- this logic can provide bugs in future -->
+																					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
+																						<xsl:element name="line">
+																							<xsl:element name="content">
+																								<xsl:attribute name="grade">
+																									<xsl:call-template name="determine-grade" >
+																										<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																									</xsl:call-template>
+																								</xsl:attribute>
+																								<xsl:value-of select="."/>
+																							</xsl:element>
+																						</xsl:element>
+																					</xsl:if>
+																				</xsl:if>
+																			</xsl:for-each>
+																		</xsl:element>
+																	</xsl:element>
+																</xsl:element>
+															</xsl:element>
+															<!-- process to print other level 2 element -->
 															<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L2']">
 																<!-- check of no. of following worse and immediate L3 is empty -->
 																<xsl:if test="$remaining-worse = count(following::text:p[@text:style-name='SK-MM-Worse']) and normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1])='' and not(normalize-space(.) = '')">
@@ -174,7 +464,52 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 												</xsl:element>
 											</xsl:element>
 										</xsl:when>
-										
+
+										<!-- two level nesting -->
+										<xsl:when test="normalize-space(following::text:p[@text:style-name='SK-MM-L2'][1]) != ''">
+
+											<!--process to print first level 1 element -->
+											<xsl:element name="line">
+												<xsl:element name="item">
+													<xsl:element name="content">
+														<xsl:attribute name="grade">
+															<xsl:call-template name="determine-grade" >
+																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+															</xsl:call-template>
+														</xsl:attribute>
+														<xsl:value-of select="."/>
+													</xsl:element>
+													<xsl:element name="subsection">	
+														<!-- process to print level 2 element -->
+
+														<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L2']">
+
+															<!-- check of no. of following better and immediate L3 is empty -->
+															<!-- <xsl:if test="$remaining-better = count(following::text:p[@text:style-name='SK-MM-Better']) and normalize-space(following::text:p[@text:style-name='SK-MM-L3'][1])='' and not(normalize-space(.) = '')"> -->
+															<!-- how many SK-MM-L1 is present after this SK-MM-L2? If less than when entered this node 
+																 it means another nesting started-->
+															<xsl:if test="count(following::text:p[@text:style-name='SK-MM-L1'][normalize-space(.)!='']) = $no-of-mm-L1">
+																<xsl:element name="line">
+																	<xsl:element name="item">
+																		<xsl:element name="content">
+																			<xsl:attribute name="grade">
+																				<xsl:call-template name="determine-grade" >
+																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																				</xsl:call-template>
+																			</xsl:attribute>
+																			<xsl:value-of select="."/>
+																		</xsl:element>
+																	</xsl:element>
+																</xsl:element>
+															</xsl:if>
+														</xsl:for-each>
+
+													</xsl:element>
+
+												</xsl:element>
+											</xsl:element>
+										</xsl:when>
+
 										<xsl:otherwise>											
 											<xsl:element name="line">
 												<xsl:element name="item">
@@ -192,128 +527,16 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 									</xsl:choose>
 
 
+
 								</xsl:if>
 							</xsl:if>
 						</xsl:for-each>
-
 					</xsl:element>
-				</xsl:if>	
+				</xsl:if>			
+
+
 
 			</xsl:for-each>
-
-			<!-- check for a Worse Block -->
-			<xsl:for-each select="following::text:p[@text:style-name='SK-MM-Worse']">		
-
-				<!--check of a SK-MM-Worse contains text worse -->
-				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and normalize-space(.) = 'Worse'">	
-				
-				<xsl:element name="abstract">
-						<xsl:attribute name="section">
-							<xsl:value-of select ="'worse'" />
-						</xsl:attribute>
-					
-					<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L1']">
-						<!--check of SK-MM-L1 is not empty-->
-						<xsl:if test="normalize-space(.) != ''" >
-							<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and preceding::text:p[1]/@text:style-name='SK-MM-Worse'">
-								<xsl:element name="test">
-									<xsl:value-of select="."/>
-								</xsl:element>
-							</xsl:if>
-						</xsl:if>
-					</xsl:for-each>
-					</xsl:element>
-				</xsl:if>	
-
-			</xsl:for-each>
-
-			<!-- check for a Better Block -->
-			<xsl:for-each select="following::text:p[@text:style-name='SK-MM-Better']">		
-
-				<!--check of a SK-MM-Better contains text better -->
-				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and normalize-space(.) = 'Better'">	
-					<xsl:element name="debug">
-						<xsl:value-of select="." />
-					</xsl:element>	
-					<xsl:for-each select="following::text:p[@text:style-name='SK-MM-L1']">
-						<!--check of SK-MM-L1 is not empty-->
-						<xsl:if test="normalize-space(.) != ''">
-							<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and preceding::text:p[1]/@text:style-name='SK-MM-Better'">
-								<xsl:element name="test">
-									<xsl:value-of select="."/>
-								</xsl:element>
-							</xsl:if>
-						</xsl:if>
-					</xsl:for-each>
-
-				</xsl:if>	
-
-			</xsl:for-each>
-
-
-
-			<!-- buidling line item for worse -->
-			<!-- <xsl:for-each select="following::text:p[normalize-space(text()) = 'Worse'][1]">
-				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
-					<xsl:element name="abstract">
-						<xsl:attribute name="section">
-							<xsl:value-of select="'Worse'"/>
-						</xsl:attribute>
-						<xsl:call-template name="region-line-item"/>
-
-					</xsl:element>
-				</xsl:if>
-			</xsl:for-each>
-
-			<xsl:for-each select="following::text:p[normalize-space(text()) = 'Better'][1]">
-				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
-					<xsl:element name="abstract">
-						<xsl:attribute name="section">
-							<xsl:value-of select="'Better'"/>
-						</xsl:attribute>
-						<xsl:call-template name="region-line-item"/>
-
-					</xsl:element>
-				</xsl:if>
-			</xsl:for-each> -->
-
-			<!-- <xsl:element name="symptoms">
-				<xsl:for-each select="following::text:p[@text:style-name = 'Primary']">
-					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
-						<xsl:element name="symptom">
-							<xsl:attribute name="importance">
-								<xsl:value-of select="'1'"/>
-							</xsl:attribute>
-
-							<xsl:attribute name="grade">
-
-							</xsl:attribute>
-
-							<xsl:value-of select="." />
-
-						</xsl:element>
-					</xsl:if>
-				</xsl:for-each>
-
-				<xsl:for-each select="following::text:p[@text:style-name = 'Secondary']">
-					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
-						<xsl:element name="symptom">
-							<xsl:attribute name="importance">
-								<xsl:value-of select="'2'"/>
-							</xsl:attribute>
-
-							<xsl:attribute name="grade">
-
-							</xsl:attribute>
-
-							<xsl:value-of select="." />
-
-						</xsl:element>
-					</xsl:if>
-				</xsl:for-each>
-
-			</xsl:element> -->
-
 
 
 		</xsl:element>
