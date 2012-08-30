@@ -571,6 +571,34 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 									<xsl:value-of disable-output-escaping="yes" select="$concated-text" />
 
 								</xsl:when>
+								
+								<xsl:when test="$no-of-txspan = 2" >
+								
+								<xsl:variable name="grade-suffix-one">
+									<xsl:call-template name="determine-grade" >
+										<xsl:with-param name="gradename" select="text:span[1]/@text:style-name" />
+									</xsl:call-template>
+									</xsl:variable>
+									
+									<xsl:variable name="grade-suffix-two">
+									<xsl:call-template name="determine-grade" >
+										<xsl:with-param name="gradename" select="text:span[2]/@text:style-name" />
+									</xsl:call-template>
+									</xsl:variable>
+								
+									
+									<xsl:variable name="first-txspan" select="text:span[1]" />
+									<xsl:variable name="second-txspan" select="text:span[2]" />
+							
+									<xsl:variable name="start-tag-first" select="concat('&lt;', 'grade',$grade-suffix-one, '>')" />
+									<xsl:variable name="end-tag-first" select="concat('&lt;', '/', 'grade',$grade-suffix-one, '>')" />
+									
+									<xsl:variable name="start-tag-second" select="concat('&lt;', 'grade',$grade-suffix-two, '>')" />
+									<xsl:variable name="end-tag-second" select="concat('&lt;', '/', 'grade',$grade-suffix-two, '>')" />
+									
+									<xsl:variable name="concated-text"  select="concat(substring-before(.,$first-txspan), $start-tag-first, $first-txspan, $end-tag-first, substring-after(substring-before(., $second-txspan),$first-txspan), $start-tag-second, $second-txspan, $end-tag-second, substring-after(., $second-txspan))" />
+									<xsl:value-of disable-output-escaping="yes" select="$concated-text" />
+								</xsl:when>
 							</xsl:choose>
 							<!-- <xsl:for-each select="text:span">
 							<xsl:value-of select="." />
