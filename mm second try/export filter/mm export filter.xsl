@@ -1,4 +1,4 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0">
 	<xsl:output method="xml" indent="yes"/>
 
@@ -538,6 +538,72 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 			</xsl:for-each>
 
+			<xsl:element name="symptoms">
+
+				<xsl:for-each select="following::text:p[@text:style-name = 'Primary']">
+					<xsl:variable name="current-node" select="current()" />
+					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
+						<xsl:element name="sentence">
+							<xsl:attribute name="part">
+								<xsl:value-of select="'1'" />
+							</xsl:attribute>
+
+
+							<xsl:variable name="no-of-txspan" select="count(text:span)" />
+
+							<xsl:choose>
+								<xsl:when test="$no-of-txspan = 0">
+									<xsl:value-of select="." />
+								</xsl:when>
+								<xsl:when test="$no-of-txspan = 1" >
+
+									<xsl:variable name="grade-suffix">
+									<xsl:call-template name="determine-grade" >
+										<xsl:with-param name="gradename" select="text:span/@text:style-name" />
+									</xsl:call-template>
+									</xsl:variable>
+									
+									<xsl:variable name="first-txspan" select="text:span[1]" />
+									<xsl:variable name="start-tag" select="concat('&lt;', 'grade',$grade-suffix, '>')" />
+									<xsl:variable name="end-tag" select="concat('&lt;', '/', 'grade',$grade-suffix, '>')" />
+									
+									<xsl:variable name="concated-text"  select="concat(substring-before(.,$first-txspan), $start-tag, $first-txspan, $end-tag, substring-after(.,$first-txspan))" />
+									<xsl:value-of disable-output-escaping="yes" select="$concated-text" />
+
+								</xsl:when>
+							</xsl:choose>
+							<!-- <xsl:for-each select="text:span">
+							<xsl:value-of select="." />
+							</xsl:for-each> -->
+
+							<xsl:variable name="tokenizedstr" select="tokenize(.,',\s|;\s')" />
+							<!-- <xsl:value-of select="subsequence($tokenizedstr, 2,1)" /> -->
+							<!-- <xsl:value-of select="count($tokenizedstr)" /> -->
+							<xsl:variable name="no-of-token" select="count($tokenizedstr)" />
+							<!-- <xsl:for-each select="for $i in 1 to $no-of-token return $i">
+								<xsl:value-of select="subsequence($tokenizedstr, current(),1)" />
+								<xsl:value-of select="$current-node/text:span/@text:style-name" />
+							</xsl:for-each> -->
+
+							<!-- <xsl:for-each select="$tokenizedstr">
+							<xsl:value-of select="." />
+							<xsl:value-of select="'got it'" />
+							</xsl:for-each> -->
+						</xsl:element>
+					</xsl:if>
+				</xsl:for-each>
+
+				<xsl:for-each select="following::text:p[@text:style-name = 'Secondary']">
+					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
+						<xsl:element name="sentence">
+							<xsl:attribute name="part">
+								<xsl:value-of select="'2'" />
+							</xsl:attribute>
+							<xsl:value-of select="." />
+						</xsl:element>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:element>
 
 		</xsl:element>
 
