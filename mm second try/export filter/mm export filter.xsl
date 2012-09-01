@@ -534,10 +534,9 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 					</xsl:element>
 				</xsl:if>			
 
-
-
 			</xsl:for-each>
 
+			<!-- symptoms -->
 			<xsl:element name="symptoms">
 
 				<xsl:for-each select="following::text:p[@text:style-name = 'Primary']">
@@ -558,65 +557,68 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 								<xsl:when test="$no-of-txspan = 1" >
 
 									<xsl:variable name="grade-suffix">
-									<xsl:call-template name="determine-grade" >
-										<xsl:with-param name="gradename" select="text:span/@text:style-name" />
-									</xsl:call-template>
+										<xsl:call-template name="determine-grade" >
+											<xsl:with-param name="gradename" select="text:span/@text:style-name" />
+										</xsl:call-template>
 									</xsl:variable>
-									
+
 									<xsl:variable name="first-txspan" select="text:span[1]" />
-									<xsl:variable name="start-tag" select="concat('&lt;', 'grade',$grade-suffix, '>')" />
+									<xsl:variable name="start-tag" select="concat('grade',$grade-suffix)" />
 									<xsl:variable name="end-tag" select="concat('&lt;', '/', 'grade',$grade-suffix, '>')" />
-									
-									<xsl:variable name="concated-text"  select="concat(substring-before(.,$first-txspan), $start-tag, $first-txspan, $end-tag, substring-after(.,$first-txspan))" />
-									<xsl:value-of disable-output-escaping="yes" select="$concated-text" />
+
+
+									<!--here outputs are print-->
+									<xsl:value-of select="substring-before(.,$first-txspan)" />
+									<xsl:element name="{$start-tag}">
+										<xsl:value-of select="$first-txspan" />
+									</xsl:element>
+									<xsl:value-of select="substring-after(.,$first-txspan)" />							
+
 
 								</xsl:when>
-								
+
 								<xsl:when test="$no-of-txspan = 2" >
-								
-								<xsl:variable name="grade-suffix-one">
-									<xsl:call-template name="determine-grade" >
-										<xsl:with-param name="gradename" select="text:span[1]/@text:style-name" />
-									</xsl:call-template>
+
+									<xsl:variable name="grade-suffix-one">
+										<xsl:call-template name="determine-grade" >
+											<xsl:with-param name="gradename" select="text:span[1]/@text:style-name" />
+										</xsl:call-template>
 									</xsl:variable>
-									
+
 									<xsl:variable name="grade-suffix-two">
-									<xsl:call-template name="determine-grade" >
-										<xsl:with-param name="gradename" select="text:span[2]/@text:style-name" />
-									</xsl:call-template>
+										<xsl:call-template name="determine-grade" >
+											<xsl:with-param name="gradename" select="text:span[2]/@text:style-name" />
+										</xsl:call-template>
 									</xsl:variable>
-								
-									
+
+
 									<xsl:variable name="first-txspan" select="text:span[1]" />
 									<xsl:variable name="second-txspan" select="text:span[2]" />
-							
-									<xsl:variable name="start-tag-first" select="concat('&lt;', 'grade',$grade-suffix-one, '>')" />
-									<xsl:variable name="end-tag-first" select="concat('&lt;', '/', 'grade',$grade-suffix-one, '>')" />
-									
-									<xsl:variable name="start-tag-second" select="concat('&lt;', 'grade',$grade-suffix-two, '>')" />
+
+									<xsl:variable name="start-tag-first" select="concat('grade',$grade-suffix-one)" />
+									<xsl:variable name="end-tag-first" select="concat('&lt;', '/', 'grade',$grade-suffix-one, '>')" />									
+
+
+									<xsl:variable name="start-tag-second" select="concat('grade',$grade-suffix-two)" />
 									<xsl:variable name="end-tag-second" select="concat('&lt;', '/', 'grade',$grade-suffix-two, '>')" />
-									
-									<xsl:variable name="concated-text"  select="concat(substring-before(.,$first-txspan), $start-tag-first, $first-txspan, $end-tag-first, substring-after(substring-before(., $second-txspan),$first-txspan), $start-tag-second, $second-txspan, $end-tag-second, substring-after(., $second-txspan))" />
-									<xsl:value-of disable-output-escaping="yes" select="$concated-text" />
+
+									<!--here outputs are print-->
+									<xsl:value-of select="substring-before(.,$first-txspan)" />
+									<xsl:element name="{$start-tag-first}">
+										<xsl:value-of select="$first-txspan" />
+									</xsl:element>
+									<xsl:value-of select="substring-after(substring-before(., $second-txspan),$first-txspan)" />
+									<xsl:element name="{$start-tag-second}">
+										<xsl:value-of select="$second-txspan" />
+									</xsl:element>
+									<xsl:value-of select= "substring-after(., $second-txspan)" />
+
+
+									<!-- <xsl:variable name="concated-text"  select="concat(substring-before(.,$first-txspan), $start-tag-first, $first-txspan, $end-tag-first, substring-after(substring-before(., $second-txspan),$first-txspan), $start-tag-second, $second-txspan, $end-tag-second, substring-after(., $second-txspan))" />
+									<xsl:value-of  select="$concated-text" /> -->
 								</xsl:when>
 							</xsl:choose>
-							<!-- <xsl:for-each select="text:span">
-							<xsl:value-of select="." />
-							</xsl:for-each> -->
 
-							<xsl:variable name="tokenizedstr" select="tokenize(.,',\s|;\s')" />
-							<!-- <xsl:value-of select="subsequence($tokenizedstr, 2,1)" /> -->
-							<!-- <xsl:value-of select="count($tokenizedstr)" /> -->
-							<xsl:variable name="no-of-token" select="count($tokenizedstr)" />
-							<!-- <xsl:for-each select="for $i in 1 to $no-of-token return $i">
-								<xsl:value-of select="subsequence($tokenizedstr, current(),1)" />
-								<xsl:value-of select="$current-node/text:span/@text:style-name" />
-							</xsl:for-each> -->
-
-							<!-- <xsl:for-each select="$tokenizedstr">
-							<xsl:value-of select="." />
-							<xsl:value-of select="'got it'" />
-							</xsl:for-each> -->
 						</xsl:element>
 					</xsl:if>
 				</xsl:for-each>
@@ -627,13 +629,271 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 							<xsl:attribute name="part">
 								<xsl:value-of select="'2'" />
 							</xsl:attribute>
-							<xsl:value-of select="." />
+
+
+							<xsl:variable name="no-of-txspan" select="count(text:span)" />
+
+							<xsl:choose>
+								<xsl:when test="$no-of-txspan = 0">
+									<xsl:value-of select="." />
+								</xsl:when>
+								<xsl:when test="$no-of-txspan = 1" >
+
+									<xsl:variable name="grade-suffix">
+										<xsl:call-template name="determine-grade" >
+											<xsl:with-param name="gradename" select="text:span/@text:style-name" />
+										</xsl:call-template>
+									</xsl:variable>
+
+									<xsl:variable name="first-txspan" select="text:span[1]" />
+									<xsl:variable name="start-tag" select="concat('grade',$grade-suffix)" />
+
+									<!--here outputs are print-->
+									<xsl:value-of select="substring-before(.,$first-txspan)" />
+									<xsl:element name="{$start-tag}">
+										<xsl:value-of select="$first-txspan" />
+									</xsl:element>
+									<xsl:value-of select="substring-after(.,$first-txspan)" />						
+
+
+
+								</xsl:when>
+
+								<xsl:when test="$no-of-txspan = 2" >
+
+									<xsl:variable name="grade-suffix-one">
+										<xsl:call-template name="determine-grade" >
+											<xsl:with-param name="gradename" select="text:span[1]/@text:style-name" />
+										</xsl:call-template>
+									</xsl:variable>
+
+									<xsl:variable name="grade-suffix-two">
+										<xsl:call-template name="determine-grade" >
+											<xsl:with-param name="gradename" select="text:span[2]/@text:style-name" />
+										</xsl:call-template>
+									</xsl:variable>
+
+
+									<xsl:variable name="first-txspan" select="text:span[1]" />
+									<xsl:variable name="second-txspan" select="text:span[2]" />
+
+									<xsl:variable name="start-tag-first" select="concat('grade',$grade-suffix-one)" />
+
+									<xsl:variable name="start-tag-second" select="concat('grade',$grade-suffix-two)" />
+
+									<!--here outputs are print-->
+									<xsl:value-of select="substring-before(.,$first-txspan)" />
+									<xsl:element name="{$start-tag-first}">
+										<xsl:value-of select="$first-txspan" />
+									</xsl:element>
+									<xsl:value-of select="substring-after(substring-before(., $second-txspan),$first-txspan)" />
+									<xsl:element name="{$start-tag-second}">
+										<xsl:value-of select="$second-txspan" />
+									</xsl:element>
+									<xsl:value-of select= "substring-after(., $second-txspan)" />
+
+
+
+								</xsl:when>
+							</xsl:choose>
 						</xsl:element>
 					</xsl:if>
 				</xsl:for-each>
 			</xsl:element>
 
+			<!-- generate remedy-reference tags-->
+			<xsl:for-each select="following::text:p[@text:style-name='SK-MM-Remedy-Reference']" >
+				<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
+
+					<xsl:if test="contains(.,'Complementary:')">						
+						<xsl:element name="remedy-reference">
+							<xsl:attribute name="type">
+								<xsl:value-of select="'Complementary'" />								
+							</xsl:attribute>
+
+							<xsl:choose>
+								<!-- check if Complementary immediately followed by Follows -->
+								<xsl:when test="contains(substring-after(., 'Complementary'), 'Follows')">									
+									<xsl:variable name="remedy-list" select="substring-after(substring-before(.,'Follows'), 'Complementary:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:when>
+
+								<!-- check if Complementary immediately followed by Antidote -->
+								<xsl:when test="contains(substring-after(., 'Complementary'), 'Antidote')">
+									<xsl:variable name="remedy-list" select="substring-after(substring-before(.,'Antidote'), 'Complementary:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:when>
+
+								<!-- check if Complementary immediately followed by Related -->
+								<xsl:when test="contains(substring-after(., 'Complementary'), 'Related')">
+
+									<xsl:variable name="remedy-list" select="substring-after(substring-before(.,'Related'), 'Complementary:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:when>
+
+								<xsl:otherwise>
+
+									<xsl:variable name="remedy-list" select="substring-after(., 'Complementary:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:otherwise>
+
+							</xsl:choose>
+						</xsl:element>
+					</xsl:if>
+
+					<xsl:if test="contains(.,'Follows:')">						
+						<xsl:element name="remedy-reference">
+							<xsl:attribute name="type">
+								<xsl:value-of select="'Follows'" />
+							</xsl:attribute>
+
+							<xsl:choose>
+
+								<xsl:when test="contains(substring-after(., 'Follows'), 'Antidote')">
+
+									<xsl:variable name="remedy-list" select="substring-after(substring-before(.,'Antidote'), 'Follows:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:when>
+
+								<xsl:when test="contains(substring-after(., 'Follows'), 'Related')">
+
+									<xsl:variable name="remedy-list" select="substring-after(substring-before(.,'Related'), 'Follows:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:when>
+
+								<xsl:otherwise>
+									<xsl:variable name="remedy-list" select="substring-after(., 'Follows:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+
+									</xsl:for-each>
+								</xsl:otherwise>
+
+							</xsl:choose>
+						</xsl:element>
+					</xsl:if>
+
+					<xsl:if test="contains(.,'Antidote:')">						
+						<xsl:element name="remedy-reference">
+							<xsl:attribute name="type">
+								<xsl:value-of select="'Antidote'" />
+							</xsl:attribute>
+
+							<xsl:choose>
+								<xsl:when test="contains(substring-after(., 'Antidote'), 'Related')">
+									<xsl:variable name="remedy-list" select="substring-after(substring-before(.,'Related'), 'Antidote:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+									</xsl:for-each>
+								</xsl:when>
+
+								<xsl:otherwise>
+									<xsl:variable name="remedy-list" select="substring-after(., 'Antidote:')" />
+
+									<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+									<xsl:for-each select="$remedy-indv" >
+										<xsl:call-template name="generate-remedy-tags">
+											<xsl:with-param name="remedy-indv" select="." />
+										</xsl:call-template>
+
+									</xsl:for-each>
+								</xsl:otherwise>
+							</xsl:choose>
+
+						</xsl:element>
+					</xsl:if>
+
+					<xsl:if test="contains(.,'Related:')">						
+						<xsl:element name="remedy-reference">
+							<xsl:attribute name="type">
+								<xsl:value-of select="'Related'" />
+							</xsl:attribute>
+
+							<xsl:variable name="remedy-list" select="substring-after(., 'Related:')" />
+
+							<xsl:variable name="remedy-indv" select="tokenize(normalize-space($remedy-list), '\.')" />
+
+							<xsl:for-each select="$remedy-indv" >
+								<xsl:call-template name="generate-remedy-tags">
+									<xsl:with-param name="remedy-indv" select="." />
+								</xsl:call-template>
+
+							</xsl:for-each>
+						</xsl:element>
+					</xsl:if>
+
+				</xsl:if>
+			</xsl:for-each>
+
 		</xsl:element>
+
+	</xsl:template>
+
+
+	<xsl:template name="generate-remedy-tags">
+		<xsl:param name="remedy-indv" />
+		<xsl:if test="not(normalize-space($remedy-indv)='')">
+			<xsl:element name="remedy">
+				<!--NEED TO FIX THIS IN FUTRE-->
+				<xsl:attribute name="grade">
+					<xsl:value-of select="1" />
+				</xsl:attribute>
+				<xsl:value-of select="$remedy-indv" />
+			</xsl:element>
+		</xsl:if>
 
 	</xsl:template>
 
