@@ -79,7 +79,7 @@
 
 	</xsl:template>
 
-	<xsl:template match="text:p[@text:style-name='P5']">
+	<xsl:template match="text:p[@text:style-name='P4']">
 
 		<table:table table:name="Tabelle1" table:style-name="Tabelle1">
 			<table:table-column table:style-name="Tabelle1.A"/>
@@ -116,11 +116,11 @@
 			</table:table-row>
 
 
-			<xsl:if test="contains(following::text:p[@text:style-name='P2'][1], 'REGION')">
+			<xsl:if test="contains(following::text:p[@text:style-name='P1'][1], 'REGION')">
 
 				<!-- get REGION text-->
 				<xsl:variable name="rstring">
-					<xsl:value-of select="replace(substring-after(following::text:p[@text:style-name='P2'][1],'REGION:$'),'[$]', '1')">
+					<xsl:value-of select="replace(substring-after(following::text:p[@text:style-name='P1'][1],'REGION:$'),'[$]', '1')">
 					</xsl:value-of>
 				</xsl:variable>
 
@@ -139,11 +139,11 @@
 
 			</xsl:if>
 
-			<xsl:if test="contains(following::text:p[@text:style-name='P2'][2], 'WORSE')">
+			<xsl:if test="contains(following::text:p[@text:style-name='P1'][2], 'WORSE')">
 
 				<!--get WORSE text-->
 				<xsl:variable name="wstring">
-					<xsl:value-of select="replace(substring-after(following::text:p[@text:style-name='P2'][2],'WORSE:$'),'[$]', '1')">
+					<xsl:value-of select="replace(substring-after(following::text:p[@text:style-name='P1'][2],'WORSE:$'),'[$]', '1')">
 					</xsl:value-of>
 				</xsl:variable>
 
@@ -160,10 +160,10 @@
 				</xsl:call-template>
 			</xsl:if>
 
-			<xsl:if test="contains(following::text:p[@text:style-name='P2'][3], 'BETTER')">
+			<xsl:if test="contains(following::text:p[@text:style-name='P1'][3], 'BETTER')">
 				<!--get BETTER text-->
 				<xsl:variable name="bstring">
-					<xsl:value-of select="replace(substring-after(following::text:p[@text:style-name='P2'][3],'BETTER:$'),'[$]', '1')">
+					<xsl:value-of select="replace(substring-after(following::text:p[@text:style-name='P1'][3],'BETTER:$'),'[$]', '1')">
 					</xsl:value-of>
 				</xsl:variable>
 
@@ -195,9 +195,9 @@
 
 
 		
-		<xsl:variable name="contextprimary" select="following::text:p[@text:style-name='P4'][1]" />
+		<xsl:variable name="contextprimary" select="following::text:p[@text:style-name='P3'][1]" />
 
-		<xsl:variable name="tokenizedsample" select="tokenize(substring-before(following::text:p[@text:style-name='P4'][1], '....................'), '\.')" />
+		<xsl:variable name="tokenizedsample" select="tokenize(substring-before(following::text:p[@text:style-name='P3'][1], '....................'), '\.\s')" />
 
 		<xsl:for-each select="$tokenizedsample">
 
@@ -206,10 +206,12 @@
 
 			<text:p text:style-name="Primary">
 				<xsl:for-each select="$tokenizedsubstr">
+				
 					<xsl:call-template name="primarytext">
 						<xsl:with-param name="texts" select="normalize-space(current())" />
 						<xsl:with-param name="contextprimary"  select="$contextprimary"/>
 					</xsl:call-template>
+					
 				</xsl:for-each>
 			</text:p>
 
@@ -222,9 +224,9 @@
 			<text:line-break/>
 		</text:p> -->
 		
-		<xsl:variable name="contextsecondary" select="following::text:p[@text:style-name='P4'][1]" />
+		<xsl:variable name="contextsecondary" select="following::text:p[@text:style-name='P3'][1]" />
 
-		<xsl:variable name="tokenizedsample" select="tokenize(substring-after(following::text:p[@text:style-name='P4'][1], '....................'), '\.')" />
+		<xsl:variable name="tokenizedsample" select="tokenize(substring-after(following::text:p[@text:style-name='P3'][1], '....................'), '\.\s')" />
 
 		<xsl:for-each select="$tokenizedsample">
 
@@ -243,8 +245,9 @@
 
 		</xsl:for-each>
 
-		<text:p>
-			<xsl:value-of select="following::text:p[@text:style-name='P6'][1]"/>
+		<!-- Generate remedy reference section-->
+		<text:p text:style-name="SK-MM-Remedy-Reference">
+			<xsl:value-of select="replace(following::text:p[@text:style-name='P5'][1], '\$', ' ')"/>
 		</text:p>
 
 		<text:p />
@@ -479,13 +482,13 @@
 
 							<xsl:call-template name="findstyle">
 								<xsl:with-param name="strtofindstyle" select="$toprint"/>
-								<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+								<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 							</xsl:call-template>
 
 						</text:p>
 					</table:table-cell>
 					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-						<text:p text:style-name="Table_20_Contents">
+						<text:p text:style-name="SK-MM-L2">
 							<text:span text:style-name="Strong_20_Emphasis"/>
 						</text:p>
 					</table:table-cell>
@@ -557,7 +560,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$flevel"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
@@ -569,7 +572,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$slevel"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 
 
@@ -580,7 +583,7 @@
 							<text:p text:style-name="SK-MM-L3">
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$tlevelsubstr"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 							</text:p>
 
@@ -625,7 +628,7 @@
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="Table_20_Contents">
+							<text:p text:style-name="SK-MM-L2">
 								<text:span text:style-name="Strong_20_Emphasis"/>
 							</text:p>
 						</table:table-cell>
@@ -634,7 +637,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$tlevelsubstr"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 							</text:p>
 
@@ -702,7 +705,7 @@
 
 						<xsl:call-template name="findstyle">
 							<xsl:with-param name="strtofindstyle" select="$extractedstr"/>
-							<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+							<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 						</xsl:call-template>
 
 
@@ -764,7 +767,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="substring-before($totalstring, '1')"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 
 
@@ -776,7 +779,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$texttoprint"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
@@ -825,7 +828,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$texttoprint"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][1], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][1], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
@@ -930,14 +933,14 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$toprint"/>
-									<xsl:with-param name ="section" select="substring-before(following::text:p[@text:style-name='P2'][2], ':')"/>
+									<xsl:with-param name ="section" select="substring-before(following::text:p[@text:style-name='P1'][2], ':')"/>
 								</xsl:call-template>
 
 
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="Table_20_Contents">
+							<text:p text:style-name="SK-MM-L2">
 								<text:span text:style-name="Strong_20_Emphasis"/>
 							</text:p>
 						</table:table-cell>
@@ -1009,7 +1012,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="substring-before($totalstring, ':')"/>
-									<xsl:with-param name ="section" select="substring-before(following::text:p[@text:style-name='P2'][2], ':')"/>
+									<xsl:with-param name ="section" select="substring-before(following::text:p[@text:style-name='P1'][2], ':')"/>
 								</xsl:call-template>
 
 							</text:p>
@@ -1020,7 +1023,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$toprint"/>
-									<xsl:with-param name ="section" select="substring-before(following::text:p[@text:style-name='P2'][2], ':')"/>
+									<xsl:with-param name ="section" select="substring-before(following::text:p[@text:style-name='P1'][2], ':')"/>
 								</xsl:call-template>
 
 
@@ -1068,7 +1071,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$toprint"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][2], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][2], ':'))"/>
 								</xsl:call-template>
 
 
@@ -1169,13 +1172,13 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$toprint"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][3], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][3], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
-							<text:p text:style-name="Table_20_Contents">
+							<text:p text:style-name="SK-MM-L2">
 								<text:span text:style-name="Strong_20_Emphasis"/>
 							</text:p>
 						</table:table-cell>
@@ -1237,7 +1240,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="substring-before($totalstring, ':')"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][3], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][3], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
@@ -1248,7 +1251,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$texttoprint"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][3], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][3], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
@@ -1294,7 +1297,7 @@
 
 								<xsl:call-template name="findstyle">
 									<xsl:with-param name="strtofindstyle" select="$texttoprint"/>
-									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P2'][3], ':'))"/>
+									<xsl:with-param name ="section" select="normalize-space(substring-before(following::text:p[@text:style-name='P1'][3], ':'))"/>
 								</xsl:call-template>
 
 							</text:p>
