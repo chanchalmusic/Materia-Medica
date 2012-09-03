@@ -81,6 +81,9 @@
 
 	<xsl:template match="text:p[@text:style-name='P5']">
 
+		<text:p text:style-name="SK-MM-Rem-Short">
+						<xsl:value-of select="'Short Name'"/>
+					</text:p>
 		<table:table table:name="Tabelle1" table:style-name="Tabelle1">
 			<table:table-column table:style-name="Tabelle1.A"/>
 			<table:table-column table:style-name="Tabelle1.B"/>

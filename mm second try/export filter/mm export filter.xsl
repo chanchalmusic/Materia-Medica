@@ -40,7 +40,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 			</xsl:attribute>
 
 			<xsl:element name="remedy-abbr">
-				<xsl:value-of select="''"/>
+				<xsl:value-of select="preceding::text:p[@text:style-name='SK-MM-Rem-Short'][1]"/>
 			</xsl:element>
 
 			<xsl:element name="remedy-name">
@@ -665,11 +665,11 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 										
 										<xsl:copy-of select="$temporary-string"/>
 									
-									<xsl:if test="matches($temporary-string, '\([a-zA-Z\-]+\.\)')">
+									<!-- <xsl:if test="matches($temporary-string, '\([a-zA-Z\-]+\.\)')">
 										<xsl:copy-of select="$temporary-string" />
 										<xsl:variable name="abcd" select="replace($temporary-string, 'Sul', 'bhul')" />
 										<xsl:copy-of select="$abcd" />
-									</xsl:if>
+									</xsl:if> -->
 
 
 
