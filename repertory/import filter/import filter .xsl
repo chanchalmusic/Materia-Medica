@@ -1,4 +1,4 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:text="http://openoffice.org/2000/text" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:text="http://openoffice.org/2000/text" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0">
 
 	<xsl:template match="/">
 
@@ -289,15 +289,22 @@
 
 	</xsl:template>
 
-	<xsl:template match="text:p[@text:style-name='P4' or @text:style-name='P6']">
+	<xsl:template match="text:p[@text:style-name='P4' or @text:style-name='P6' or @text:style-name='P7' or @text:style-name='P5']">
+	
+	<xsl:if test="position() &lt; 250">
+
+		<!-- check if the matched text:p is a rubric by containing ':' -->
 		<xsl:if test="contains(string(.),':')">
+		
+		<!--special check for SRT-->
+		<xsl:if test="starts-with(string(.),'F')">
 
 			<xsl:variable name ="followinglist" select="following-sibling::text:p[1]"/>
 			<xsl:variable name="levellistorg" select="string(.)"/>
 
 
 
-
+			<!-- count of how many remedy in the rubric -->
 			<xsl:variable name="totalsubstring">
 				<xsl:call-template name="count-substring">
 					<xsl:with-param name="texts" select="$followinglist"/>
@@ -332,51 +339,60 @@
 
 					<table:table-row table:style-name="Table3.2">
 						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="2" office:value-type="string">
-							<text:p text:style-name="SK-T-L1"/>
+							<text:p text:style-name="SK-T-L1">
+								<xsl:call-template name="generate-ridx">
+									<xsl:with-param name="position" select="position()"/>
+									<xsl:with-param name="levellistorg" select="$levellistorg"/>
+								</xsl:call-template>
+							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" office:value-type="string">
 							<text:p text:style-name="SK-T-L2">
-								<!--
+
+							<xsl:value-of select="substring-before($levellistorg,',')" />
+							<!--these are commented to use with srt-->
+							<!-- <xsl:value-of select="','" />
+								<xsl:call-template name="extractlevel">
+									<xsl:with-param name="levellist" select="$levellistorg" />
+									<xsl:with-param name="delimiter" select="','"/>
+									<xsl:with-param name="counter" select="2"/>
+								</xsl:call-template> -->
+
+								<!-- <xsl:value-of select="normalize-space(substring-after(substring-before($levellistorg,':'),','))"/> -->
+							</text:p>
+						</table:table-cell>
+						<table:table-cell table:style-name="Table3.A2" office:value-type="string">
+							<text:p text:style-name="SK-T-L3">
+
+							<!--counter changed to 2 from 3 for SRT-->
 								<xsl:call-template name="extractlevel">
 									<xsl:with-param name="levellist" select="$levellistorg" />
 									<xsl:with-param name="delimiter" select="','"/>
 									<xsl:with-param name="counter" select="2"/>
 								</xsl:call-template>
-								-->
-								<xsl:value-of select="normalize-space(substring-after(substring-before($levellistorg,':'),','))"/>
+
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" office:value-type="string">
-							<text:p text:style-name="SK-T-L3">
-								<!--
+							<text:p text:style-name="SK-T-L4">
+
 								<xsl:call-template name="extractlevel">
 									<xsl:with-param name="levellist" select="$levellistorg" />
 									<xsl:with-param name="delimiter" select="','"/>
 									<xsl:with-param name="counter" select="3"/>
 								</xsl:call-template>
-								-->
+
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" office:value-type="string">
-							<text:p text:style-name="SK-T-L4">
-								<!--
+							<text:p text:style-name="SK-T-L5">
+
 								<xsl:call-template name="extractlevel">
 									<xsl:with-param name="levellist" select="$levellistorg" />
 									<xsl:with-param name="delimiter" select="','"/>
 									<xsl:with-param name="counter" select="4"/>
 								</xsl:call-template>
-								-->
-							</text:p>
-						</table:table-cell>
-						<table:table-cell table:style-name="Table3.A2" office:value-type="string">
-							<text:p text:style-name="SK-T-L5">
-								<!--
-								<xsl:call-template name="extractlevel">
-									<xsl:with-param name="levellist" select="$levellistorg" />
-									<xsl:with-param name="delimiter" select="','"/>
-									<xsl:with-param name="counter" select="5"/>
-								</xsl:call-template>
-								-->
+
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" office:value-type="string">
@@ -459,6 +475,7 @@
 					</table:table-row>
 
 				</xsl:when>
+
 				<xsl:otherwise>
 					<!-- more than one remedy in rubric-->
 					<xsl:call-template name="outputtokens">
@@ -473,7 +490,9 @@
 
 
 			<text:p/>
-
+		</xsl:if>
+		</xsl:if>
+		
 		</xsl:if>
 	</xsl:template>
 
@@ -509,52 +528,62 @@
 
 					<table:table-row table:style-name="Table3.2">
 						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$actualnoofremedies*2}" office:value-type="string">
-							<text:p text:style-name="SK-T-L1"/>
+							<text:p text:style-name="SK-T-L1">
+								<!-- <xsl:value-of select="position()" />
+							<xsl:value-of select="count(tokenize($levellistorg, ','))" /> -->
+								<xsl:call-template name="generate-ridx">
+									<xsl:with-param name="position" select="position()"/>
+									<xsl:with-param name="levellistorg" select="$levellistorg"/>
+								</xsl:call-template>
+
+							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$noofrowsspanned}" office:value-type="string">
 							<text:p text:style-name="SK-T-L2">
-								<!--
+
+							<xsl:value-of select="substring-before($levellistorg,',')" />
+							<!-- <xsl:value-of select="','" />
+								<xsl:call-template name="extractlevel">
+									<xsl:with-param name="levellist" select="$levellistorg" />
+									<xsl:with-param name="delimiter" select="','"/>
+									<xsl:with-param name="counter" select="2"/>
+								</xsl:call-template> -->
+
+
+								<!-- <xsl:value-of select="normalize-space(substring-after(substring-before($levellistorg,':'),','))"/> -->
+							</text:p>
+						</table:table-cell>
+						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$noofrowsspanned}" office:value-type="string">
+							<text:p text:style-name="SK-T-L3">
+
 								<xsl:call-template name="extractlevel">
 									<xsl:with-param name="levellist" select="$levellistorg" />
 									<xsl:with-param name="delimiter" select="','"/>
 									<xsl:with-param name="counter" select="2"/>
 								</xsl:call-template>
-								-->
 
-								<xsl:value-of select="normalize-space(substring-after(substring-before($levellistorg,':'),','))"/>
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$noofrowsspanned}" office:value-type="string">
-							<text:p text:style-name="SK-T-L3">
-								<!--
+							<text:p text:style-name="SK-T-L4">
+
 								<xsl:call-template name="extractlevel">
 									<xsl:with-param name="levellist" select="$levellistorg" />
 									<xsl:with-param name="delimiter" select="','"/>
 									<xsl:with-param name="counter" select="3"/>
 								</xsl:call-template>
-								-->
+
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$noofrowsspanned}" office:value-type="string">
-							<text:p text:style-name="SK-T-L4">
-								<!--
+							<text:p text:style-name="SK-T-L5">
+
 								<xsl:call-template name="extractlevel">
 									<xsl:with-param name="levellist" select="$levellistorg" />
 									<xsl:with-param name="delimiter" select="','"/>
 									<xsl:with-param name="counter" select="4"/>
 								</xsl:call-template>
-								-->
-							</text:p>
-						</table:table-cell>
-						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$noofrowsspanned}" office:value-type="string">
-							<text:p text:style-name="SK-T-L5">
-								<!--
-								<xsl:call-template name="extractlevel">
-									<xsl:with-param name="levellist" select="$levellistorg" />
-									<xsl:with-param name="delimiter" select="','"/>
-									<xsl:with-param name="counter" select="5"/>
-								</xsl:call-template>
-								-->
+
 							</text:p>
 						</table:table-cell>
 						<table:table-cell table:style-name="Table3.A2" table:number-rows-spanned="{$noofrowsspanned}" office:value-type="string">
@@ -820,6 +849,25 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template name="generate-ridx">
+		<xsl:param name="position" />
+		<xsl:param name="levellistorg" />
+	
+	<xsl:variable name="prefix" select="'84'" />
+		
+		<xsl:choose>
+			<xsl:when test="$position &lt; 10">
+				<xsl:value-of select="concat($prefix, '00',$position, ',', count(tokenize($levellistorg, ','))+1,',', $prefix, '00',$position)" />
+			</xsl:when>
+			<xsl:when test="$position &lt; 100" >
+				<xsl:value-of select="concat($prefix, '0',$position, ',', count(tokenize($levellistorg, ','))+1, ',', $prefix,'0',$position)" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="concat($prefix,$position, ',', count(tokenize($levellistorg, ','))+1, ',', $prefix,$position)" />
+			</xsl:otherwise>
+		</xsl:choose>
+
+	</xsl:template>
 
 	<xsl:template name="level2list">
 		<xsl:param name="listname" />
@@ -838,18 +886,16 @@
 		</xsl:variable>
 
 		<xsl:choose>
-			<xsl:when test="$stylename ='T9' or $stylename ='T7' or $stylename ='T8'">
+			<xsl:when test="$stylename ='T9' or $stylename ='T7' or $stylename ='T8' or $stylename ='T3' ">
 
 				<xsl:value-of select="2"/>
 
-
-
 			</xsl:when>
 
-			<xsl:when test="$stylename ='T4'">
+			<xsl:when test="$stylename ='T4'or $stylename ='T6'">
 
 				<xsl:choose>
-					<xsl:when test="contains(.,'Hiccough') or contains(.,'Cough')">
+					<xsl:when test="contains(.,'Hiccough') or contains(.,'Cough') or contains(., 'Time') or contains(., 'Intellect')  or contains(., 'Eyes')  or contains(., 'Lumbar region')">
 
 						<xsl:value-of select="4"/>
 
@@ -875,7 +921,7 @@
 
 
 				<xsl:choose>
-					<xsl:when test="contains(.,'Hiccough') or contains(.,'Cough')">
+					<xsl:when test="contains(.,'Hiccough') or contains(.,'Cough') or contains(., 'Time') or contains(., 'Intellect') or contains(., 'Eyes')  or contains(., 'Lumbar region')">
 
 						<xsl:value-of select="3"/>
 
@@ -883,8 +929,8 @@
 
 					</xsl:when>
 					<xsl:otherwise>
-
-						<xsl:value-of select="4"/>
+						<!--changed from 4 to 2 for SRT-->
+						<xsl:value-of select="2"/>
 
 
 					</xsl:otherwise>
@@ -921,7 +967,7 @@
 		</xsl:variable>
 
 		<xsl:choose>
-			<xsl:when test="$stylename ='T9' or $stylename ='T7' or $stylename ='T8'">
+			<xsl:when test="$stylename ='T9' or $stylename ='T7' or $stylename ='T8' or $stylename ='T3' ">
 				<text:span text:style-name="SK-T-Gr2">
 					<xsl:value-of select="$remname"/>
 
@@ -929,9 +975,9 @@
 
 			</xsl:when>
 
-			<xsl:when test="$stylename ='T4'">
+			<xsl:when test="$stylename ='T4' or $stylename ='T6'">
 				<xsl:choose>
-					<xsl:when test="contains(current(),'Hiccough') or contains(current(),'Cough')">
+					<xsl:when test="contains(current(),'Hiccough') or contains(current(),'Cough') or contains(., 'Time') or contains(., 'Intellect') or contains(., 'Eyes')">
 						<text:span text:style-name="SK-T-Gr4">
 							<xsl:value-of select="$remname"/>
 
@@ -952,15 +998,17 @@
 			<xsl:when test="$stylename ='T5'">
 
 				<xsl:choose>
-					<xsl:when test="contains(current(),'Hiccough') or contains(current(),'Cough')">
+					<xsl:when test="contains(current(),'Hiccough') or contains(current(),'Cough') or contains(., 'Time') or contains(., 'Intellect') or contains(., 'Eyes')">
+					
 						<text:span text:style-name="SK-T-Gr3">
 							<xsl:value-of select="$remname"/>
 
 						</text:span>
 
 					</xsl:when>
+					<!--changed for SRT-->
 					<xsl:otherwise>
-						<text:span text:style-name="SK-T-Gr4">
+						<text:span text:style-name="SK-T-Gr2">
 							<xsl:value-of select="$remname"/>
 
 						</text:span>
@@ -1088,7 +1136,8 @@
 
 
 	<xsl:template name="chapter">
-		<xsl:value-of select="//text:p[@text:style-name='P5']" />
+		<!-- <xsl:value-of select="//text:p[@text:style-name='P5']" /> -->
+		<xsl:value-of select="'SRT'" />
 	</xsl:template>
 
 </xsl:stylesheet>
