@@ -186,7 +186,9 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0">
 			</xsl:element>
 
 			<xsl:element name ="remedies">
-				<xsl:call-template name="make-remedy" />
+				<xsl:if test="following::text:p[@text:style-name='SK-T-Rem'][1] != ''">
+					<xsl:call-template name="make-remedy" />
+				</xsl:if>
 			</xsl:element>
 
 			<xsl:element name="comments">
