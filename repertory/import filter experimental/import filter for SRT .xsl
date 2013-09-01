@@ -289,7 +289,7 @@
 
 	</xsl:template>
 
-	<xsl:template match="text:p[@text:style-name='P6']">
+	<xsl:template match="text:p[@text:style-name='P4']">
 		<xsl:if test="contains(string(.),':') and contains(.,'Abdomen')">
 
 			<xsl:variable name ="followinglist" select="following-sibling::text:p[1]"/>
