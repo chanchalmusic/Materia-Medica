@@ -97,13 +97,15 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																			<!-- this logic can provide bugs in future -->
 																			<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
 																				<xsl:element name="line">
-																					<xsl:element name="content">
-																						<xsl:attribute name="grade">
-																							<xsl:call-template name="determine-grade" >
-																								<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
-																							</xsl:call-template>
-																						</xsl:attribute>
-																						<xsl:value-of select="."/>
+																					<xsl:element name="item">
+																						<xsl:element name="content">
+																							<xsl:attribute name="grade">
+																								<xsl:call-template name="determine-grade" >
+																									<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																								</xsl:call-template>
+																							</xsl:attribute>
+																							<xsl:value-of select="."/>
+																						</xsl:element>
 																					</xsl:element>
 																				</xsl:element>
 																			</xsl:if>
@@ -575,7 +577,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 									</xsl:variable>
 
 									<xsl:copy-of select="$temporary-string"/>
-									
+
 									<xsl:if test="matches($temporary-string, '\([a-zA-Z\-]+\.\)')">
 										<xsl:value-of select="'got is'" />
 									</xsl:if>
@@ -656,15 +658,15 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 									<!--here outputs are print-->
 									<xsl:variable name="temporary-string">
-									<xsl:value-of select="substring-before(.,$first-txspan)" />
-									<xsl:element name="{$start-tag}">
-										<xsl:value-of select="$first-txspan" />
-									</xsl:element>
-									<xsl:value-of select="substring-after(.,$first-txspan)" />	
-										</xsl:variable>
-										
-										<xsl:copy-of select="$temporary-string"/>
-									
+										<xsl:value-of select="substring-before(.,$first-txspan)" />
+										<xsl:element name="{$start-tag}">
+											<xsl:value-of select="$first-txspan" />
+										</xsl:element>
+										<xsl:value-of select="substring-after(.,$first-txspan)" />	
+									</xsl:variable>
+
+									<xsl:copy-of select="$temporary-string"/>
+
 									<!-- <xsl:if test="matches($temporary-string, '\([a-zA-Z\-]+\.\)')">
 										<xsl:copy-of select="$temporary-string" />
 										<xsl:variable name="abcd" select="replace($temporary-string, 'Sul', 'bhul')" />
