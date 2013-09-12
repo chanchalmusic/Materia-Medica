@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" office:version="1.2" grddl:transformation="http://docs.oasis-open.org/office/1.2/xslt/odf2rdf.xsl">
+	<office:scripts/>
+	<office:font-face-decls>
+		<style:font-face style:name="Mangal1" svg:font-family="Mangal"/>
+		<style:font-face style:name="NewsGoth Cn BT" svg:font-family="&apos;NewsGoth Cn BT&apos;"/>
+		<style:font-face style:name="Courier New" svg:font-family="&apos;Courier New&apos;" style:font-family-generic="modern" style:font-pitch="fixed"/>
+		<style:font-face style:name="NSimSun" svg:font-family="NSimSun" style:font-family-generic="modern" style:font-pitch="fixed"/>
+		<style:font-face style:name="Mangal" svg:font-family="Mangal" style:font-family-generic="system" style:font-pitch="variable"/>
+		<style:font-face style:name="SimSun" svg:font-family="SimSun" style:font-family-generic="system" style:font-pitch="variable"/>
+	</office:font-face-decls>
+	<office:automatic-styles>
+		<style:style style:name="Tabelle1" style:family="table">
+			<style:table-properties style:width="6.6931in" table:align="margins"/>
+		</style:style>
+		<style:style style:name="Tabelle1.A" style:family="table-column">
+			<style:table-column-properties style:column-width="0.9556in" style:rel-column-width="9356*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.B" style:family="table-column">
+			<style:table-column-properties style:column-width="1.8917in" style:rel-column-width="18522*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.C" style:family="table-column">
+			<style:table-column-properties style:column-width="1.9646in" style:rel-column-width="19236*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.D" style:family="table-column">
+			<style:table-column-properties style:column-width="1.0417in" style:rel-column-width="10199*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.E" style:family="table-column">
+			<style:table-column-properties style:column-width="0.3764in" style:rel-column-width="3685*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.F" style:family="table-column">
+			<style:table-column-properties style:column-width="0.2486in" style:rel-column-width="2434*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.G" style:family="table-column">
+			<style:table-column-properties style:column-width="0.2146in" style:rel-column-width="2103*"/>
+		</style:style>
+		<style:style style:name="Tabelle1.A1" style:family="table-cell">
+			<style:table-cell-properties fo:padding="0.0382in" fo:border-left="0.0007in solid #000000" fo:border-right="none" fo:border-top="0.0007in solid #000000" fo:border-bottom="0.0007in solid #000000"/>
+		</style:style>
+		<style:style style:name="Tabelle1.G1" style:family="table-cell">
+			<style:table-cell-properties fo:padding="0.0382in" fo:border="0.0007in solid #000000"/>
+		</style:style>
+		<style:style style:name="Tabelle1.A2" style:family="table-cell">
+			<style:table-cell-properties fo:padding="0.0382in" fo:border-left="0.0007in solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.0007in solid #000000"/>
+		</style:style>
+		<style:style style:name="Tabelle1.G2" style:family="table-cell">
+			<style:table-cell-properties fo:padding="0.0382in" fo:border-left="0.0007in solid #000000" fo:border-right="0.0007in solid #000000" fo:border-top="none" fo:border-bottom="0.0007in solid #000000"/>
+		</style:style>
+		<style:style style:name="P1" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+			<style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+		</style:style>
+	</office:automatic-styles>
+	<office:body>
+		<office:text>
+			<text:sequence-decls>
+				<text:sequence-decl text:display-outline-level="0" text:name="Illustration"/>
+				<text:sequence-decl text:display-outline-level="0" text:name="Table"/>
+				<text:sequence-decl text:display-outline-level="0" text:name="Text"/>
+				<text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
+			</text:sequence-decls>
+			<table:table table:name="Tabelle1" table:style-name="Tabelle1">
+				<table:table-column table:style-name="Tabelle1.A"/>
+				<table:table-column table:style-name="Tabelle1.B"/>
+				<table:table-column table:style-name="Tabelle1.C"/>
+				<table:table-column table:style-name="Tabelle1.D"/>
+				<table:table-column table:style-name="Tabelle1.E"/>
+				<table:table-column table:style-name="Tabelle1.F"/>
+				<table:table-column table:style-name="Tabelle1.G"/>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+						<text:p text:style-name="P1">Calc-c</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">L1</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">L2</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">L3</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">fnote</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G1" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1">Region</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Nutrition</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Strong_20_Emphasis">Glands</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3">Cervical.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Strong_20_Emphasis"/>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3">Mesenteric</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Strong_20_Emphasis">Bones</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Strong_20_Emphasis">Skin</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Blood</text:span>.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Chest. R.</text:span> Lung.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Heart</text:span>.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Children</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1">Worse</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Cold</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Strong_20_Emphasis">Raw Air</text:span>. Wet <text:span text:style-name="SK-RemRef">(Ars. Tub.)</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">1</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Strong_20_Emphasis">Bathing</text:span>.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">Cooling Off.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">Change of Weather</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Exertion</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">Mental.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Emphasis">Physical</text:span>.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">2</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">
+							<text:span text:style-name="Emphasis">Ascending</text:span>.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents">Eystrain.</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Dentition</text:span>. Puberty</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Pressure of Clothes</text:span>
+						</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1">
+							<text:span text:style-name="Strong_20_Emphasis">Milk</text:span>, Awaking. Anxiety</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1">Better</text:p>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="P1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L1"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="SK-MM-L3"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.A2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+					<table:table-cell table:style-name="Tabelle1.G2" office:value-type="string">
+						<text:p text:style-name="Table_20_Contents"/>
+					</table:table-cell>
+				</table:table-row>
+			</table:table>
+			<text:p text:style-name="Standard">
+				<text:span text:style-name="Emphasis"/>
+			</text:p>
+			<text:p text:style-name="Table_20_Contents">
+				<text:span text:style-name="SK-RemRef">1) (Ars. Tub.) are not in original data but included here to show optional differentiation by applying a character style &quot;remedy-reference&quot; while the structure is given by paragraph styles on columns</text:span>
+			</text:p>
+			<text:p text:style-name="Table_20_Contents">
+				<text:span text:style-name="SK-RemRef">2) Example for a footnote: &quot;Grade 2 markup added in 6th edition&quot;</text:span>
+			</text:p>
+		</office:text>
+	</office:body>
+</office:document-content>
