@@ -20,20 +20,20 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 		<xsl:param name="remaining-remedies" />
 
 		<xsl:variable name="remaining-region">
-			<xsl:copy-of select="count(following::text:p[@text:style-name='SK-MM-Region'])" />
+			<xsl:value-of select="count(following::text:p[@text:style-name='SK-MM-Region'])" />
 		</xsl:variable>
 
 		<!-- no of worse following this region -->
 		<xsl:variable name="remaining-worse">
-			<xsl:copy-of select="count(following::text:p[@text:style-name='SK-MM-Worse'])" />
+			<xsl:value-of select="count(following::text:p[@text:style-name='SK-MM-Worse'])" />
 		</xsl:variable>
 
+        <!-- no of better following this region -->
 		<xsl:variable name="remaining-better">
-			<xsl:copy-of select="count(following::text:p[@text:style-name='SK-MM-Better'])" />
+			<xsl:value-of select="count(following::text:p[@text:style-name='SK-MM-Better'])" />
 		</xsl:variable>
 
 		<xsl:element name="remedy">	
-
 
 			<xsl:attribute name="added">
 				<xsl:value-of select="''"/>
@@ -540,8 +540,11 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 			<xsl:element name="symptoms">
 
 				<xsl:for-each select="following::text:p[@text:style-name = 'Primary']">
+
 					<xsl:variable name="current-node" select="current()" />
+
 					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and not(normalize-space(.)='') ">
+
 						<xsl:element name="sentence">
 							<xsl:attribute name="part">
 								<xsl:value-of select="'1'" />
@@ -550,10 +553,16 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 							<xsl:variable name="no-of-txspan" select="count(text:span)" />
 
+                            <!-- TODO remove it -->
+                            <xsl:element name="textspan">
+                                <xsl:value-of select="$no-of-txspan" />
+                            </xsl:element>
+
 							<xsl:choose>
 								<xsl:when test="$no-of-txspan = 0">
 									<xsl:value-of select="." />
 								</xsl:when>
+
 								<xsl:when test="$no-of-txspan = 1" >
 
 									<xsl:variable name="grade-suffix">
