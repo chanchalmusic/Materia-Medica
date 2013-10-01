@@ -73,7 +73,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="." />
@@ -85,7 +85,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																<xsl:element name="content">
 																	<xsl:attribute name="grade">
 																		<xsl:call-template name="determine-grade" >
-																			<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
+																			<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
 																		</xsl:call-template>
 																	</xsl:attribute>
 																	<xsl:value-of select="following::text:p[@text:style-name='SK-MM-L2'][1]"/>
@@ -101,7 +101,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																						<xsl:element name="content">
 																							<xsl:attribute name="grade">
 																								<xsl:call-template name="determine-grade" >
-																									<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																									<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																								</xsl:call-template>
 																							</xsl:attribute>
 																							<xsl:value-of select="."/>
@@ -124,7 +124,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																		<xsl:element name="content">
 																			<xsl:attribute name="grade">
 																				<xsl:call-template name="determine-grade" >
-																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																					<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																				</xsl:call-template>
 																			</xsl:attribute>
 																			<xsl:value-of select="."/>
@@ -149,7 +149,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
@@ -164,7 +164,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																		<xsl:element name="content">
 																			<xsl:attribute name="grade">
 																				<xsl:call-template name="determine-grade" >
-																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																					<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																				</xsl:call-template>
 																			</xsl:attribute>
 																			<xsl:value-of select="."/>
@@ -186,7 +186,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
@@ -238,7 +238,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="." />
@@ -249,7 +249,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																	<xsl:element name="content">
 																		<xsl:attribute name="grade">
 																			<xsl:call-template name="determine-grade" >
-																				<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
+																				<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
 																			</xsl:call-template>
 																		</xsl:attribute>
 																		<xsl:value-of select="following::text:p[@text:style-name='SK-MM-L2'][1]"/>
@@ -263,7 +263,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																							<xsl:element name="content">
 																								<xsl:attribute name="grade">
 																									<xsl:call-template name="determine-grade" >
-																										<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																										<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																									</xsl:call-template>
 																								</xsl:attribute>
 																								<xsl:value-of select="."/>
@@ -285,7 +285,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																			<xsl:element name="content">
 																				<xsl:attribute name="grade">
 																					<xsl:call-template name="determine-grade" >
-																						<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																						<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																					</xsl:call-template>
 																				</xsl:attribute>
 																				<xsl:value-of select="."/>
@@ -310,7 +310,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
@@ -330,7 +330,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																		<xsl:element name="content">
 																			<xsl:attribute name="grade">
 																				<xsl:call-template name="determine-grade" >
-																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																					<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																				</xsl:call-template>
 																			</xsl:attribute>
 																			<xsl:value-of select="."/>
@@ -352,7 +352,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
@@ -404,7 +404,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="." />
@@ -415,7 +415,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																	<xsl:element name="content">
 																		<xsl:attribute name="grade">
 																			<xsl:call-template name="determine-grade" >
-																				<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
+																				<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L2'][1]/text:span/@text:style-name" />
 																			</xsl:call-template>
 																		</xsl:attribute>
 																		<xsl:value-of select="following::text:p[@text:style-name='SK-MM-L2'][1]"/>
@@ -429,7 +429,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																							<xsl:element name="content">
 																								<xsl:attribute name="grade">
 																									<xsl:call-template name="determine-grade" >
-																										<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																										<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																									</xsl:call-template>
 																								</xsl:attribute>
 																								<xsl:value-of select="."/>
@@ -451,7 +451,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																			<xsl:element name="content">
 																				<xsl:attribute name="grade">
 																					<xsl:call-template name="determine-grade" >
-																						<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																						<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																					</xsl:call-template>
 																				</xsl:attribute>
 																				<xsl:value-of select="."/>
@@ -476,7 +476,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="following::text:p[@text:style-name='SK-MM-L1'][1]/text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
@@ -496,7 +496,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 																		<xsl:element name="content">
 																			<xsl:attribute name="grade">
 																				<xsl:call-template name="determine-grade" >
-																					<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																					<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 																				</xsl:call-template>
 																			</xsl:attribute>
 																			<xsl:value-of select="."/>
@@ -518,7 +518,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 													<xsl:element name="content">
 														<xsl:attribute name="grade">
 															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="gradename" select="./text:span/@text:style-name" />
+																<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
 															</xsl:call-template>
 														</xsl:attribute>
 														<xsl:value-of select="."/>
@@ -550,24 +550,31 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 								<xsl:value-of select="'1'" />
 							</xsl:attribute>
 
+                            <xsl:variable name="line-content" select="." />
+
+                                <!--<xsl:element name="NoOftextSpan">
+                                    <xsl:value-of select="substring-after(substring-before($line-content, text:span[2]), text:span[1])" />
+                                </xsl:element>-->
 
 							<xsl:variable name="no-of-txspan" select="count(text:span)" />
-
-                            <!-- TODO remove it -->
-                            <xsl:element name="textspan">
-                                <xsl:value-of select="$no-of-txspan" />
-                            </xsl:element>
 
 							<xsl:choose>
 								<xsl:when test="$no-of-txspan = 0">
 									<xsl:value-of select="." />
 								</xsl:when>
 
-								<xsl:when test="$no-of-txspan = 1" >
+								<xsl:when test="$no-of-txspan != 0" >
+
+                                    <xsl:variable name="so-far-tag" select="'ab'" />
+
+                                    <xsl:call-template name="build-tag" >
+                                        <xsl:with-param name="so-far-tag" select="$so-far-tag" />
+                                        <xsl:with-param name="counter" select="$no-of-txspan" />
+                                    </xsl:call-template>
 
 									<xsl:variable name="grade-suffix">
 										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="gradename" select="text:span/@text:style-name" />
+											<xsl:with-param name="stylename" select="text:span/@text:style-name" />
 										</xsl:call-template>
 									</xsl:variable>
 
@@ -594,46 +601,6 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 								</xsl:when>
 
-								<xsl:when test="$no-of-txspan = 2" >
-
-									<xsl:variable name="grade-suffix-one">
-										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="gradename" select="text:span[1]/@text:style-name" />
-										</xsl:call-template>
-									</xsl:variable>
-
-									<xsl:variable name="grade-suffix-two">
-										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="gradename" select="text:span[2]/@text:style-name" />
-										</xsl:call-template>
-									</xsl:variable>
-
-
-									<xsl:variable name="first-txspan" select="text:span[1]" />
-									<xsl:variable name="second-txspan" select="text:span[2]" />
-
-									<xsl:variable name="start-tag-first" select="concat('grade',$grade-suffix-one)" />
-									<xsl:variable name="end-tag-first" select="concat('&lt;', '/', 'grade',$grade-suffix-one, '>')" />									
-
-
-									<xsl:variable name="start-tag-second" select="concat('grade',$grade-suffix-two)" />
-									<xsl:variable name="end-tag-second" select="concat('&lt;', '/', 'grade',$grade-suffix-two, '>')" />
-
-									<!--here outputs are print-->
-									<xsl:value-of select="substring-before(.,$first-txspan)" />
-									<xsl:element name="{$start-tag-first}">
-										<xsl:value-of select="$first-txspan" />
-									</xsl:element>
-									<xsl:value-of select="substring-after(substring-before(., $second-txspan),$first-txspan)" />
-									<xsl:element name="{$start-tag-second}">
-										<xsl:value-of select="$second-txspan" />
-									</xsl:element>
-									<xsl:value-of select= "substring-after(., $second-txspan)" />
-
-
-									<!-- <xsl:variable name="concated-text"  select="concat(substring-before(.,$first-txspan), $start-tag-first, $first-txspan, $end-tag-first, substring-after(substring-before(., $second-txspan),$first-txspan), $start-tag-second, $second-txspan, $end-tag-second, substring-after(., $second-txspan))" />
-									<xsl:value-of  select="$concated-text" /> -->
-								</xsl:when>
 							</xsl:choose>
 
 						</xsl:element>
@@ -658,7 +625,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 									<xsl:variable name="grade-suffix">
 										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="gradename" select="text:span/@text:style-name" />
+											<xsl:with-param name="stylename" select="text:span/@text:style-name" />
 										</xsl:call-template>
 									</xsl:variable>
 
@@ -690,13 +657,13 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 									<xsl:variable name="grade-suffix-one">
 										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="gradename" select="text:span[1]/@text:style-name" />
+											<xsl:with-param name="stylename" select="text:span[1]/@text:style-name" />
 										</xsl:call-template>
 									</xsl:variable>
 
 									<xsl:variable name="grade-suffix-two">
 										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="gradename" select="text:span[2]/@text:style-name" />
+											<xsl:with-param name="stylename" select="text:span[2]/@text:style-name" />
 										</xsl:call-template>
 									</xsl:variable>
 
@@ -933,7 +900,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 					<xsl:attribute name="grade">
 
 						<xsl:call-template name="determine-grade" >
-							<xsl:with-param name="gradename" select="following::table:table-cell[1]/text:p/text:span/@text:style-name" />
+							<xsl:with-param name="stylename" select="following::table:table-cell[1]/text:p/text:span/@text:style-name" />
 						</xsl:call-template>
 					</xsl:attribute>
 					<xsl:value-of select="following::table:table-cell[1]"/>
@@ -956,13 +923,13 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 
 	<xsl:template name="determine-grade">
-		<xsl:param name="gradename" />
+		<xsl:param name="stylename" />
 
 		<xsl:choose>
-			<xsl:when test = "$gradename = 'Strong_20_Emphasis'" >
+			<xsl:when test = "$stylename = 'Strong_20_Emphasis'" >
 				<xsl:value-of select ="'3'" />
 			</xsl:when>
-			<xsl:when test= "$gradename = 'Emphasis'">
+			<xsl:when test= "$stylename = 'Emphasis'">
 				<xsl:value-of select="'2'" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -972,13 +939,15 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 	</xsl:template>
 
 
+    <xsl:template name="build-tag">
+        <xsl:param name="so-far-tag" />
+        <xsl:param name="counter" />
 
+        <xsl:element name="fromsofar">
+            <xsl:value-of select="text:span[2]" />
+        </xsl:element>
 
-
-
-
-
-
+    </xsl:template>
 
 
 	<xsl:template name="make-rubric">
