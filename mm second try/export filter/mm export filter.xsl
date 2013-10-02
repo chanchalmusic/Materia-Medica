@@ -565,11 +565,12 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 								<xsl:when test="$no-of-txspan != 0" >
 
-                                    <xsl:variable name="so-far-tag" select="'ab'" />
+                                    <xsl:variable name="so-far-tag" select="''" />
 
                                     <xsl:call-template name="build-tag" >
                                         <xsl:with-param name="so-far-tag" select="$so-far-tag" />
                                         <xsl:with-param name="counter" select="$no-of-txspan" />
+                                        <xsl:with-param name="total" select="$no-of-txspan" />
                                     </xsl:call-template>
 
 									<xsl:variable name="grade-suffix">
@@ -942,10 +943,52 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
     <xsl:template name="build-tag">
         <xsl:param name="so-far-tag" />
         <xsl:param name="counter" />
+        <xsl:param name="total" />
 
-        <xsl:element name="fromsofar">
-            <xsl:value-of select="text:span[2]" />
-        </xsl:element>
+        <xsl:variable name="index" select="$total - $counter + 1" />
+
+        <xsl:variable name="text-btn-two-span">
+
+            <xsl:choose>
+
+                <xsl:when test="$index = 1">
+                    <xsl:value-of select="substring-before(., text:span[$index])"/>
+                </xsl:when>
+
+
+                <xsl:otherwise>
+                    <xsl:value-of
+                            select="substring-after(substring-before(., text:span[$index]), text:span[$index - 1])"/>
+                </xsl:otherwise>
+
+            </xsl:choose>
+        </xsl:variable>
+
+
+        <xsl:choose>
+            <xsl:when test="$counter = 0">
+
+                <xsl:element name="fromsofar">
+                    <xsl:value-of select="substring-after(., text:span[$total])" />
+                </xsl:element>
+
+            </xsl:when>
+
+            <xsl:otherwise>
+
+                <xsl:element name="fromsofar">
+                    <xsl:value-of select="$text-btn-two-span" />
+                </xsl:element>
+
+                <xsl:call-template name="build-tag" >
+                    <xsl:with-param name="so-far-tag" select="$so-far-tag" />
+                    <xsl:with-param name="counter" select="$counter - 1" />
+                    <xsl:with-param name="total" select="$total" />
+                </xsl:call-template>
+
+            </xsl:otherwise>
+
+        </xsl:choose>
 
     </xsl:template>
 
