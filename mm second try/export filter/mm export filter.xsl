@@ -940,6 +940,14 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 	</xsl:template>
 
 
+    <!--
+        template to construct primary and secondary sentence
+        parameters
+        1. so far build tag - initially empty
+        2. counter to control recursion
+        3. total - number of text:span in the line
+
+    -->
     <xsl:template name="build-tag">
         <xsl:param name="so-far-tag" />
         <xsl:param name="counter" />
@@ -947,6 +955,34 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
         <xsl:variable name="index" select="$total - $counter + 1" />
 
+        <xsl:variable name="current-node" select="." />
+
+        <xsl:for-each select="1 to $total">
+
+            <xsl:if test="current() = 1" >
+                <xsl:value-of select="substring-before($current-node, $current-node/text:span[current()])" />
+                <xsl:element name="first-one">
+                    <xsl:value-of select="$current-node/text:span[1]" />
+                </xsl:element>
+            </xsl:if>
+
+            <xsl:if test="current() != 1 and current() &lt;= $total">
+                <xsl:variable name="tag-name" select="concat('grade', current())" />
+                <xsl:element name="{$tag-name}">
+                    <xsl:value-of select="$current-node/text:span[current()]" />
+                </xsl:element>
+            </xsl:if>
+
+            <xsl:if test="current() = $total">
+                <xsl:element name="last-one">
+                    <xsl:value-of select="substring-after($current-node, $current-node/text:span[current()])" />
+                </xsl:element>
+            </xsl:if>
+
+
+        </xsl:for-each>
+
+        <!-- Variable to store texts between to text:span or left of a first text:span-->
         <xsl:variable name="text-btn-two-span">
 
             <xsl:choose>
@@ -954,7 +990,6 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
                 <xsl:when test="$index = 1">
                     <xsl:value-of select="substring-before(., text:span[$index])"/>
                 </xsl:when>
-
 
                 <xsl:otherwise>
                     <xsl:value-of
@@ -964,24 +999,44 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
             </xsl:choose>
         </xsl:variable>
 
-
         <xsl:choose>
             <xsl:when test="$counter = 0">
 
                 <xsl:element name="fromsofar">
-                    <xsl:value-of select="substring-after(., text:span[$total])" />
+                    <xsl:value-of select="$so-far-tag" />
                 </xsl:element>
 
             </xsl:when>
 
             <xsl:otherwise>
 
-                <xsl:element name="fromsofar">
-                    <xsl:value-of select="$text-btn-two-span" />
-                </xsl:element>
+                <xsl:variable name="gradeno">
+                    <xsl:call-template name="determine-grade">
+                        <xsl:with-param name="stylename" select="text:span[$index]/@text:style-name"/>
+                    </xsl:call-template>
+                </xsl:variable>
+
+                <xsl:variable name="start-tag">
+                    <xsl:value-of select="concat('grade', $gradeno)" />
+                </xsl:variable>
+
+
+                <xsl:variable name="new-so-far-tag">
+                    <xsl:element name="{start-tag}">
+                        <xsl:copy-of select="text:span[$index]" />
+                    </xsl:element>
+                </xsl:variable>
+
+                <xsl:variable name="array" as="element()*">
+                    <Item><xsl:value-of select="'A'" /></Item>
+                    <Item>B</Item>
+                    <Item>C</Item>
+                </xsl:variable>
+
+
 
                 <xsl:call-template name="build-tag" >
-                    <xsl:with-param name="so-far-tag" select="$so-far-tag" />
+                    <xsl:with-param name="so-far-tag" select="$array" />
                     <xsl:with-param name="counter" select="$counter - 1" />
                     <xsl:with-param name="total" select="$total" />
                 </xsl:call-template>
