@@ -541,20 +541,12 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 				<xsl:for-each select="following::text:p[@text:style-name = 'Primary']">
 
-					<xsl:variable name="current-node" select="current()" />
-
 					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and not(normalize-space(.)='') ">
 
 						<xsl:element name="sentence">
 							<xsl:attribute name="part">
 								<xsl:value-of select="'1'" />
 							</xsl:attribute>
-
-                            <xsl:variable name="line-content" select="." />
-
-                                <!--<xsl:element name="NoOftextSpan">
-                                    <xsl:value-of select="substring-after(substring-before($line-content, text:span[2]), text:span[1])" />
-                                </xsl:element>-->
 
 							<xsl:variable name="no-of-txspan" select="count(text:span)" />
 
@@ -565,15 +557,11 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 								<xsl:when test="$no-of-txspan != 0" >
 
-                                    <xsl:variable name="so-far-tag" select="''" />
-
-                                    <xsl:call-template name="build-tag" >
-                                        <xsl:with-param name="so-far-tag" select="$so-far-tag" />
-                                        <xsl:with-param name="counter" select="$no-of-txspan" />
-                                        <xsl:with-param name="total" select="$no-of-txspan" />
+                                    <xsl:call-template name="build-tag">
+                                        <xsl:with-param name="total" select="$no-of-txspan"/>
                                     </xsl:call-template>
 
-									<xsl:variable name="grade-suffix">
+									<!--<xsl:variable name="grade-suffix">
 										<xsl:call-template name="determine-grade" >
 											<xsl:with-param name="stylename" select="text:span/@text:style-name" />
 										</xsl:call-template>
@@ -584,7 +572,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 									<xsl:variable name="end-tag" select="concat('&lt;', '/', 'grade',$grade-suffix, '>')" />
 
 
-									<!--here outputs are print-->
+									&lt;!&ndash;here outputs are print&ndash;&gt;
 									<xsl:variable name="temporary-string">
 										<xsl:value-of select="substring-before(.,$first-txspan)" />
 										<xsl:element name="{$start-tag}">
@@ -597,7 +585,7 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 									<xsl:if test="matches($temporary-string, '\([a-zA-Z\-]+\.\)')">
 										<xsl:value-of select="'got is'" />
-									</xsl:if>
+									</xsl:if>-->
 
 
 								</xsl:when>
@@ -609,86 +597,30 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 				</xsl:for-each>
 
 				<xsl:for-each select="following::text:p[@text:style-name = 'Secondary']">
-					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies">
-						<xsl:element name="sentence">
+					<xsl:if test="count(following::text:p[@text:style-name='SK-MM-Rem']) = $remaining-remedies and not(normalize-space(.)='')">
+
+                        <xsl:element name="sentence">
 							<xsl:attribute name="part">
 								<xsl:value-of select="'2'" />
 							</xsl:attribute>
 
-
 							<xsl:variable name="no-of-txspan" select="count(text:span)" />
 
-							<xsl:choose>
-								<xsl:when test="$no-of-txspan = 0">
-									<xsl:value-of select="." />
-								</xsl:when>
-								<xsl:when test="$no-of-txspan = 1" >
+                            <xsl:choose>
+                                <xsl:when test="$no-of-txspan = 0">
+                                    <xsl:value-of select="." />
+                                </xsl:when>
 
-									<xsl:variable name="grade-suffix">
-										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="stylename" select="text:span/@text:style-name" />
-										</xsl:call-template>
-									</xsl:variable>
+                                <xsl:when test="$no-of-txspan != 0" >
 
-									<xsl:variable name="first-txspan" select="text:span[1]" />
-									<xsl:variable name="start-tag" select="concat('grade',$grade-suffix)" />
+                                    <xsl:call-template name="build-tag">
+                                        <xsl:with-param name="total" select="$no-of-txspan"/>
+                                    </xsl:call-template>
 
-									<!--here outputs are print-->
-									<xsl:variable name="temporary-string">
-										<xsl:value-of select="substring-before(.,$first-txspan)" />
-										<xsl:element name="{$start-tag}">
-											<xsl:value-of select="$first-txspan" />
-										</xsl:element>
-										<xsl:value-of select="substring-after(.,$first-txspan)" />	
-									</xsl:variable>
+                                </xsl:when>
 
-									<xsl:copy-of select="$temporary-string"/>
+                            </xsl:choose>
 
-									<!-- <xsl:if test="matches($temporary-string, '\([a-zA-Z\-]+\.\)')">
-										<xsl:copy-of select="$temporary-string" />
-										<xsl:variable name="abcd" select="replace($temporary-string, 'Sul', 'bhul')" />
-										<xsl:copy-of select="$abcd" />
-									</xsl:if> -->
-
-
-
-								</xsl:when>
-
-								<xsl:when test="$no-of-txspan = 2" >
-
-									<xsl:variable name="grade-suffix-one">
-										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="stylename" select="text:span[1]/@text:style-name" />
-										</xsl:call-template>
-									</xsl:variable>
-
-									<xsl:variable name="grade-suffix-two">
-										<xsl:call-template name="determine-grade" >
-											<xsl:with-param name="stylename" select="text:span[2]/@text:style-name" />
-										</xsl:call-template>
-									</xsl:variable>
-
-
-									<xsl:variable name="first-txspan" select="text:span[1]" />
-									<xsl:variable name="second-txspan" select="text:span[2]" />
-
-									<xsl:variable name="start-tag-first" select="concat('grade',$grade-suffix-one)" />
-
-									<xsl:variable name="start-tag-second" select="concat('grade',$grade-suffix-two)" />
-
-									<!--here outputs are print-->
-									<xsl:value-of select="substring-before(.,$first-txspan)" />
-									<xsl:element name="{$start-tag-first}">
-										<xsl:value-of select="$first-txspan" />
-									</xsl:element>
-									<xsl:value-of select="substring-after(substring-before(., $second-txspan),$first-txspan)" />
-									<xsl:element name="{$start-tag-second}">
-										<xsl:value-of select="$second-txspan" />
-									</xsl:element>
-									<xsl:value-of select= "substring-after(., $second-txspan)" />
-
-								</xsl:when>
-							</xsl:choose>
 						</xsl:element>
 					</xsl:if>
 				</xsl:for-each>
@@ -949,101 +881,40 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
     -->
     <xsl:template name="build-tag">
-        <xsl:param name="so-far-tag" />
-        <xsl:param name="counter" />
-        <xsl:param name="total" />
 
-        <xsl:variable name="index" select="$total - $counter + 1" />
+        <xsl:param name="total" />
 
         <xsl:variable name="current-node" select="." />
 
         <xsl:for-each select="1 to $total">
 
+            <xsl:variable name="gradeno">
+            <xsl:call-template name="determine-grade" >
+                <xsl:with-param name="stylename" select="$current-node/text:span[current()]/@text:style-name" />
+            </xsl:call-template>
+            </xsl:variable>
+
+            <xsl:variable name="tag-name" select="concat('grade', $gradeno)" />
+
             <xsl:if test="current() = 1" >
-                <xsl:value-of select="substring-before($current-node, $current-node/text:span[current()])" />
-                <xsl:element name="first-one">
+                <xsl:value-of select="substring-before(normalize-space($current-node), $current-node/text:span[current()])" />
+                <xsl:element name="{$tag-name}">
                     <xsl:value-of select="$current-node/text:span[1]" />
                 </xsl:element>
             </xsl:if>
 
             <xsl:if test="current() != 1 and current() &lt;= $total">
-                <xsl:variable name="tag-name" select="concat('grade', current())" />
+                <xsl:value-of select="substring-after(substring-before(normalize-space($current-node), $current-node/text:span[current()]), $current-node/text:span[current() - 1])" />
                 <xsl:element name="{$tag-name}">
                     <xsl:value-of select="$current-node/text:span[current()]" />
                 </xsl:element>
             </xsl:if>
 
             <xsl:if test="current() = $total">
-                <xsl:element name="last-one">
-                    <xsl:value-of select="substring-after($current-node, $current-node/text:span[current()])" />
-                </xsl:element>
+                    <xsl:value-of select="substring-after(normalize-space($current-node), $current-node/text:span[current()])" />
             </xsl:if>
 
-
         </xsl:for-each>
-
-        <!-- Variable to store texts between to text:span or left of a first text:span-->
-        <xsl:variable name="text-btn-two-span">
-
-            <xsl:choose>
-
-                <xsl:when test="$index = 1">
-                    <xsl:value-of select="substring-before(., text:span[$index])"/>
-                </xsl:when>
-
-                <xsl:otherwise>
-                    <xsl:value-of
-                            select="substring-after(substring-before(., text:span[$index]), text:span[$index - 1])"/>
-                </xsl:otherwise>
-
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:choose>
-            <xsl:when test="$counter = 0">
-
-                <xsl:element name="fromsofar">
-                    <xsl:value-of select="$so-far-tag" />
-                </xsl:element>
-
-            </xsl:when>
-
-            <xsl:otherwise>
-
-                <xsl:variable name="gradeno">
-                    <xsl:call-template name="determine-grade">
-                        <xsl:with-param name="stylename" select="text:span[$index]/@text:style-name"/>
-                    </xsl:call-template>
-                </xsl:variable>
-
-                <xsl:variable name="start-tag">
-                    <xsl:value-of select="concat('grade', $gradeno)" />
-                </xsl:variable>
-
-
-                <xsl:variable name="new-so-far-tag">
-                    <xsl:element name="{start-tag}">
-                        <xsl:copy-of select="text:span[$index]" />
-                    </xsl:element>
-                </xsl:variable>
-
-                <xsl:variable name="array" as="element()*">
-                    <Item><xsl:value-of select="'A'" /></Item>
-                    <Item>B</Item>
-                    <Item>C</Item>
-                </xsl:variable>
-
-
-
-                <xsl:call-template name="build-tag" >
-                    <xsl:with-param name="so-far-tag" select="$array" />
-                    <xsl:with-param name="counter" select="$counter - 1" />
-                    <xsl:with-param name="total" select="$total" />
-                </xsl:call-template>
-
-            </xsl:otherwise>
-
-        </xsl:choose>
 
     </xsl:template>
 
