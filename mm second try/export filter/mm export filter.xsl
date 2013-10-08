@@ -550,13 +550,6 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 							<xsl:variable name="no-of-txspan" select="count(text:span)" />
 
-							<xsl:choose>
-								<xsl:when test="$no-of-txspan = 0">
-									<xsl:value-of select="." />
-								</xsl:when>
-
-								<xsl:when test="$no-of-txspan != 0" >
-
                                     <xsl:call-template name="build-tag">
                                         <xsl:with-param name="total" select="$no-of-txspan"/>
                                     </xsl:call-template>
@@ -587,11 +580,6 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 										<xsl:value-of select="'got is'" />
 									</xsl:if>-->
 
-
-								</xsl:when>
-
-							</xsl:choose>
-
 						</xsl:element>
 					</xsl:if>
 				</xsl:for-each>
@@ -606,20 +594,9 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 							<xsl:variable name="no-of-txspan" select="count(text:span)" />
 
-                            <xsl:choose>
-                                <xsl:when test="$no-of-txspan = 0">
-                                    <xsl:value-of select="." />
-                                </xsl:when>
-
-                                <xsl:when test="$no-of-txspan != 0" >
-
                                     <xsl:call-template name="build-tag">
                                         <xsl:with-param name="total" select="$no-of-txspan"/>
                                     </xsl:call-template>
-
-                                </xsl:when>
-
-                            </xsl:choose>
 
 						</xsl:element>
 					</xsl:if>
@@ -886,35 +863,116 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
         <xsl:variable name="current-node" select="." />
 
-        <xsl:for-each select="1 to $total">
+        <xsl:choose>
+            <xsl:when test="$total = 0">
 
-            <xsl:variable name="gradeno">
-            <xsl:call-template name="determine-grade" >
-                <xsl:with-param name="stylename" select="$current-node/text:span[current()]/@text:style-name" />
-            </xsl:call-template>
-            </xsl:variable>
+                <xsl:call-template name="build-remedy-refs">
+                    <xsl:with-param name="txt-btn-two-span" select="$current-node"/>
+                    <xsl:with-param name="current-node" select="$current-node"/>
+                </xsl:call-template>
 
-            <xsl:variable name="tag-name" select="concat('grade', $gradeno)" />
+            </xsl:when>
 
-            <xsl:if test="current() = 1" >
-                <xsl:value-of select="substring-before(normalize-space($current-node), $current-node/text:span[current()])" />
-                <xsl:element name="{$tag-name}">
-                    <xsl:value-of select="$current-node/text:span[1]" />
+            <xsl:otherwise>
+                <xsl:for-each select="1 to $total">
+
+                    <xsl:variable name="gradeno">
+                        <xsl:call-template name="determine-grade">
+                            <xsl:with-param name="stylename"
+                                            select="$current-node/text:span[current()]/@text:style-name"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+
+                    <xsl:variable name="tag-name" select="concat('grade', $gradeno)"/>
+
+                    <xsl:if test="current() = 1">
+                        <xsl:variable name="txt-btn-two-span">
+                            <xsl:value-of
+                                    select="substring-before(normalize-space($current-node), $current-node/text:span[current()])"/>
+                        </xsl:variable>
+
+                        <xsl:call-template name="build-remedy-refs">
+                            <xsl:with-param name="txt-btn-two-span" select="$txt-btn-two-span"/>
+                            <xsl:with-param name="current-node" select="$current-node"/>
+                        </xsl:call-template>
+
+
+                        <xsl:element name="{$tag-name}">
+                            <xsl:value-of select="$current-node/text:span[1]"/>
+                        </xsl:element>
+                    </xsl:if>
+
+                    <xsl:if test="current() != 1 and current() &lt;= $total">
+                        <xsl:variable name="txt-btn-two-span">
+                            <xsl:value-of
+                                    select="substring-after(substring-before(normalize-space($current-node), $current-node/text:span[current()]), $current-node/text:span[current() - 1])"/>
+                        </xsl:variable>
+
+                        <xsl:call-template name="build-remedy-refs">
+                            <xsl:with-param name="txt-btn-two-span" select="$txt-btn-two-span"/>
+                            <xsl:with-param name="current-node" select="$current-node"/>
+                        </xsl:call-template>
+
+                        <xsl:element name="{$tag-name}">
+                            <xsl:value-of select="$current-node/text:span[current()]"/>
+                        </xsl:element>
+                    </xsl:if>
+
+                    <xsl:if test="current() = $total">
+                        <xsl:variable name="txt-btn-two-span">
+                            <xsl:value-of
+                                    select="substring-after(normalize-space($current-node), $current-node/text:span[current()])"/>
+                        </xsl:variable>
+
+                        <xsl:call-template name="build-remedy-refs">
+                            <xsl:with-param name="txt-btn-two-span" select="$txt-btn-two-span"/>
+                            <xsl:with-param name="current-node" select="$current-node"/>
+                        </xsl:call-template>
+
+                    </xsl:if>
+
+                </xsl:for-each>
+
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+
+    <xsl:template name="build-remedy-refs">
+        <xsl:param name="current-node" />
+        <xsl:param name="txt-btn-two-span" />
+
+        <xsl:choose>
+            <!-- test of if a '(' followed by some characters and a '.)'-->
+            <xsl:when test="matches($txt-btn-two-span, '.*\(.*\.\).*')">
+                <xsl:value-of select="substring-before($txt-btn-two-span, '(')"/>
+                <xsl:value-of select="'('"/>
+
+                <xsl:variable name="remedies" select="substring-after(substring-before($txt-btn-two-span, ')'), '(')"/>
+
+                <xsl:variable name="tokenized-remedies" select="tokenize($remedies, '\.')"/>
+
+                <xsl:element name="rem-refs">
+                    <xsl:for-each select="$tokenized-remedies">
+                        <xsl:if test="normalize-space(.) != ''">
+                            <xsl:element name="rem-ref">
+                                <xsl:attribute name="grade">
+                                    <xsl:value-of select="'1'"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:if>
+                    </xsl:for-each>
                 </xsl:element>
-            </xsl:if>
 
-            <xsl:if test="current() != 1 and current() &lt;= $total">
-                <xsl:value-of select="substring-after(substring-before(normalize-space($current-node), $current-node/text:span[current()]), $current-node/text:span[current() - 1])" />
-                <xsl:element name="{$tag-name}">
-                    <xsl:value-of select="$current-node/text:span[current()]" />
-                </xsl:element>
-            </xsl:if>
+                <xsl:value-of select="')'"/>
+                <xsl:value-of select="substring-after($txt-btn-two-span, '.)')"/>
 
-            <xsl:if test="current() = $total">
-                    <xsl:value-of select="substring-after(normalize-space($current-node), $current-node/text:span[current()])" />
-            </xsl:if>
-
-        </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$txt-btn-two-span"/>
+            </xsl:otherwise>
+        </xsl:choose>
 
     </xsl:template>
 
