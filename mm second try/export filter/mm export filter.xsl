@@ -830,8 +830,6 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 	</xsl:template>
 
 
-
-
 	<xsl:template name="determine-grade">
 		<xsl:param name="stylename" />
 
