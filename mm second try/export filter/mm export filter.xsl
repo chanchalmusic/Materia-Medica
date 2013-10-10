@@ -182,16 +182,19 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 										<xsl:otherwise>											
 											<xsl:element name="line">
-												<xsl:element name="item">
-													<xsl:element name="content">
-														<xsl:attribute name="grade">
-															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
-															</xsl:call-template>
-														</xsl:attribute>
-														<xsl:value-of select="."/>
-													</xsl:element>
-												</xsl:element>
+                                                <xsl:element name="item">
+
+                                                    <xsl:variable name="grade">
+                                                        <xsl:call-template name="determine-grade" >
+                                                            <xsl:with-param name="stylename" select="./text:span/@text:style-name" />
+                                                        </xsl:call-template>
+                                                    </xsl:variable>
+
+                                                    <xsl:call-template name="build-remedies">
+                                                        <xsl:with-param name="content" select="." />
+                                                        <xsl:with-param name="grade" select="$grade" />
+                                                    </xsl:call-template>
+                                                </xsl:element>
 											</xsl:element>											
 										</xsl:otherwise>
 									</xsl:choose>
@@ -349,14 +352,17 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 										<xsl:otherwise>											
 											<xsl:element name="line">
 												<xsl:element name="item">
-													<xsl:element name="content">
-														<xsl:attribute name="grade">
-															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
-															</xsl:call-template>
-														</xsl:attribute>
-														<xsl:value-of select="."/>
-													</xsl:element>
+
+                                                    <xsl:variable name="grade">
+                                                        <xsl:call-template name="determine-grade" >
+                                                            <xsl:with-param name="stylename" select="./text:span/@text:style-name" />
+                                                        </xsl:call-template>
+                                                    </xsl:variable>
+
+                                                    <xsl:call-template name="build-remedies">
+                                                        <xsl:with-param name="content" select="." />
+                                                        <xsl:with-param name="grade" select="$grade" />
+                                                    </xsl:call-template>
 												</xsl:element>
 											</xsl:element>											
 										</xsl:otherwise>
@@ -514,16 +520,19 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 
 										<xsl:otherwise>											
 											<xsl:element name="line">
-												<xsl:element name="item">
-													<xsl:element name="content">
-														<xsl:attribute name="grade">
-															<xsl:call-template name="determine-grade" >
-																<xsl:with-param name="stylename" select="./text:span/@text:style-name" />
-															</xsl:call-template>
-														</xsl:attribute>
-														<xsl:value-of select="."/>
-													</xsl:element>
-												</xsl:element>
+                                                <xsl:element name="item">
+
+                                                    <xsl:variable name="grade">
+                                                        <xsl:call-template name="determine-grade" >
+                                                            <xsl:with-param name="stylename" select="./text:span/@text:style-name" />
+                                                        </xsl:call-template>
+                                                    </xsl:variable>
+
+                                                    <xsl:call-template name="build-remedies">
+                                                        <xsl:with-param name="content" select="." />
+                                                        <xsl:with-param name="grade" select="$grade" />
+                                                    </xsl:call-template>
+                                                </xsl:element>
 											</xsl:element>											
 										</xsl:otherwise>
 									</xsl:choose>
@@ -783,6 +792,48 @@ xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oas
 		</xsl:element>
 
 	</xsl:template>
+
+    <xsl:template name="build-remedies">
+        <xsl:param name="content" />
+        <xsl:param name="grade" />
+
+        <xsl:choose>
+            <!-- test of if a '(' followed by some characters and a '.)'-->
+            <xsl:when test="matches($content, '.*\(.*\.\).*')">
+                <xsl:element name="content">
+                    <xsl:attribute name="grade" select="$grade" />
+                    <xsl:value-of select="substring-before($content, '(')"/>
+                </xsl:element>
+
+                <xsl:variable name="remedies" select="substring-after(substring-before($content, ')'), '(')"/>
+
+                <xsl:variable name="tokenized-remedies" select="tokenize($remedies, '\.')"/>
+
+                <xsl:element name="remedies">
+                    <xsl:for-each select="$tokenized-remedies">
+                        <xsl:if test="normalize-space(.) != ''">
+                            <xsl:element name="remedy">
+                                <xsl:attribute name="grade">
+                                    <xsl:value-of select="'1'"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:element>
+
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:element name="content">
+                    <xsl:attribute name="grade" select="$grade" />
+                    <xsl:value-of select="$content"/>
+                </xsl:element>
+
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
 
 
 	<xsl:template name="generate-remedy-tags">
