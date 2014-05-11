@@ -3,3 +3,14 @@ Remeber to replace <text:line-break/> with $ for Materia Medica
 Solve Bugs in Materia Medica
 
 A line added to test git stash feature
+
+For repertory and SRT 
+Import xlst: repertory\import filter\import filter .xsl
+Export xslt: repertory\export filter\export filter.xsl
+Template: template.ott
+
+For materia medica:
+
+Import xlst: mm second try\import filter 2nd try\import filter second try -experiment.xsl
+Export xslt: mm second try\export filter\mm export filter.xsl
+Template: try template - experiment.ott
